@@ -47,7 +47,7 @@ function renderNotices() {
   const rows=messages.filter(m=>messageFilter==='全部'||(messageFilter==='已读'?readMessages.has(m.id):!readMessages.has(m.id)));
   renderGridText(document.getElementById('noticeUnread'), '未读 '+messages.filter(m=>!readMessages.has(m.id)).length);
   document.querySelectorAll('#noticeTabs button').forEach(b=>b.classList.toggle('active',b.dataset.messageFilter===messageFilter));
-  renderGridHTML(document.getElementById('noticeRows'), rows.map(m=>'<button class="notice-item" data-message-id="'+m.id+'"><b>'+m.title+'</b><span class="tag '+(readMessages.has(m.id)?'':'r')+'">'+(readMessages.has(m.id)?'已读':'未读')+'</span><small>镇街指挥室 · '+m.time+'</small></button>').join('')||'<div class="card"><div class="notice">暂无消息</div></div>');
+  renderGridHTML(document.getElementById('noticeRows'), rows.map(m=>'<button class="notice-item" data-message-id="'+m.id+'"><b>'+m.title+'</b><span class="tag '+(readMessages.has(m.id)?'g':'r')+'">'+(readMessages.has(m.id)?'已读':'未读')+'</span><small>镇街指挥室 · '+m.time+'</small></button>').join('')||'<div class="card"><div class="notice">暂无消息</div></div>');
   renderNoticeBar()
 }
 function openMessage(id) {
