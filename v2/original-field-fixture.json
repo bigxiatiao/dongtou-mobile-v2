@@ -1,0 +1,835 @@
+{
+  "source": "rydzcjd-master/src/views/page/Home/data/option.ts + seleteCol.ts",
+  "fields": {
+    "men_option": [
+      {
+        "key": "gridCode",
+        "title": "网格代码",
+        "type": "number",
+        "required": true,
+        "disabled": true,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "town",
+        "title": "所在区划",
+        "type": "text",
+        "required": false,
+        "disabled": true,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "exclusivezone",
+        "title": "类行政区域名",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "lat,lon",
+        "title": "点位置",
+        "type": "text",
+        "required": true,
+        "disabled": false,
+        "readonly": true,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "community",
+        "title": "行政区/村社",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "village",
+        "title": "组/自然村",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "street",
+        "title": "街路巷弄名",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "door",
+        "title": "门牌号",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "yardName",
+        "title": "院落名",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "yardAlias",
+        "title": "院落别名",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "poi",
+        "title": "兴趣点名",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "legalStatus",
+        "title": "法定状态",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": true,
+        "select": true,
+        "photo": false
+      },
+      {
+        "key": "remark",
+        "title": "详情描述",
+        "type": "textarea",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "standardAddress",
+        "title": "标准地址",
+        "type": "textarea",
+        "required": true,
+        "disabled": false,
+        "readonly": true,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "collectAddress",
+        "title": "采集地址",
+        "type": "textarea",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "photo",
+        "title": "照片",
+        "type": null,
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": true
+      }
+    ],
+    "lou_option": [
+      {
+        "key": "gridCode",
+        "title": "网格代码",
+        "type": "number",
+        "required": true,
+        "disabled": true,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "town",
+        "title": "所在区划",
+        "type": "text",
+        "required": false,
+        "disabled": true,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "exclusivezone",
+        "title": "类行政区域名",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "lat,lon",
+        "title": "点位置",
+        "type": "text",
+        "required": true,
+        "disabled": false,
+        "readonly": true,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "affiliatedDoorAddressName",
+        "title": "请选择所属院落小区门牌",
+        "type": "textarea",
+        "required": false,
+        "disabled": false,
+        "readonly": true,
+        "select": true,
+        "photo": false
+      },
+      {
+        "key": "community",
+        "title": "行政区/村社",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "village",
+        "title": "组/自然村",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "street",
+        "title": "街路巷弄名",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "door",
+        "title": "门牌号",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "yardName",
+        "title": "院落名",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "yardAlias",
+        "title": "院落别名",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "subareaName",
+        "title": "子区名",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "internalRoad",
+        "title": "院落内部街路巷弄名",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "internalDoor",
+        "title": "院内门牌号",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "buildingNum",
+        "title": "楼牌号",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "buildingName",
+        "title": "建筑物名称",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "buildingAlias",
+        "title": "建筑物别名",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "poi",
+        "title": "兴趣点名",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "wdmjzddxjz",
+        "title": "有无地面建筑的地下建筑",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": true,
+        "select": true,
+        "photo": false
+      },
+      {
+        "key": "legalStatus",
+        "title": "法定状态",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": true,
+        "select": true,
+        "photo": false
+      },
+      {
+        "key": "remark",
+        "title": "详情描述",
+        "type": "textarea",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "standardAddress",
+        "title": "标准地址",
+        "type": "textarea",
+        "required": true,
+        "disabled": false,
+        "readonly": true,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "collectAddress",
+        "title": "采集地址",
+        "type": "textarea",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "photo",
+        "title": "照片",
+        "type": null,
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": true
+      }
+    ],
+    "hs_option": [
+      {
+        "key": "homeAddress",
+        "title": "具体地址",
+        "type": "textarea",
+        "required": true,
+        "disabled": false,
+        "readonly": true,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "unit",
+        "title": "单元名",
+        "type": "text",
+        "required": false,
+        "disabled": true,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "floorNum",
+        "title": "楼层数",
+        "type": "number",
+        "required": true,
+        "disabled": true,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "floor",
+        "title": "楼层名",
+        "type": "text",
+        "required": false,
+        "disabled": true,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "homeNum",
+        "title": "户室号",
+        "type": "text",
+        "required": true,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "state",
+        "title": "使用状态",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": true,
+        "select": true,
+        "photo": false
+      },
+      {
+        "key": "legalStatus",
+        "title": "法定状态",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": true,
+        "select": true,
+        "photo": false
+      },
+      {
+        "key": "photo",
+        "title": "照片",
+        "type": null,
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": true
+      }
+    ],
+    "persop_option": [
+      {
+        "key": "zhName",
+        "title": "姓名",
+        "type": "text",
+        "required": true,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "sfhm",
+        "title": "身份证",
+        "type": "text",
+        "required": true,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "gender",
+        "title": "性别",
+        "type": "text",
+        "required": true,
+        "disabled": false,
+        "readonly": true,
+        "select": true,
+        "photo": false
+      },
+      {
+        "key": "zhrylx",
+        "title": "人员类型",
+        "type": "text",
+        "required": true,
+        "disabled": false,
+        "readonly": true,
+        "select": true,
+        "photo": false
+      },
+      {
+        "key": "birthdate",
+        "title": "出生年月",
+        "type": "text",
+        "required": true,
+        "disabled": false,
+        "readonly": true,
+        "select": true,
+        "photo": false
+      },
+      {
+        "key": "sjch",
+        "title": "联系电话",
+        "type": "text",
+        "required": true,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "zhzt",
+        "title": "住户状态",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": true,
+        "select": true,
+        "photo": false
+      },
+      {
+        "key": "zhsf",
+        "title": "住户身份",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": true,
+        "select": true,
+        "photo": false
+      },
+      {
+        "key": "relationship",
+        "title": "与户主关系",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": true,
+        "select": true,
+        "photo": false
+      },
+      {
+        "key": "ldqk",
+        "title": "流动情况",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "jzrs",
+        "title": "居住人数",
+        "type": "number",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "town",
+        "title": "所属村社",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "mz",
+        "title": "民族",
+        "type": "text",
+        "required": true,
+        "disabled": false,
+        "readonly": true,
+        "select": true,
+        "photo": false
+      },
+      {
+        "key": "sjycd",
+        "title": "受教育程度",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": true,
+        "select": true,
+        "photo": false
+      },
+      {
+        "key": "hyzt",
+        "title": "婚姻状态",
+        "type": "text",
+        "required": false,
+        "disabled": false,
+        "readonly": true,
+        "select": true,
+        "photo": false
+      },
+      {
+        "key": "gridNumber",
+        "title": "网格编号",
+        "type": "text",
+        "required": true,
+        "disabled": false,
+        "readonly": true,
+        "select": true,
+        "photo": false
+      },
+      {
+        "key": "microGridNumber",
+        "title": "微网格编号",
+        "type": "text",
+        "required": true,
+        "disabled": false,
+        "readonly": true,
+        "select": true,
+        "photo": false
+      },
+      {
+        "key": "microGridLong",
+        "title": "网格长",
+        "type": "text",
+        "required": false,
+        "disabled": true,
+        "readonly": false,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "bzAddress",
+        "title": "标准地址",
+        "type": "textarea",
+        "required": true,
+        "disabled": false,
+        "readonly": true,
+        "select": false,
+        "photo": false
+      },
+      {
+        "key": "tsqk",
+        "title": "特殊情况",
+        "type": "textarea",
+        "required": false,
+        "disabled": false,
+        "readonly": true,
+        "select": true,
+        "photo": false
+      }
+    ]
+  },
+  "choices": {
+    "columns_legalStatus": [
+      "法定地址",
+      "临时地址"
+    ],
+    "columns_wdmjzddxjz": [
+      "有",
+      "无"
+    ],
+    "columns_useStatus": [
+      "有效",
+      "无效"
+    ],
+    "columns_tsqk": [
+      "独居老人",
+      "行动不便",
+      "重病患者",
+      "其他"
+    ],
+    "columns_hyzt": [
+      "未婚",
+      "丧偶",
+      "有配偶",
+      "离婚",
+      "其他"
+    ],
+    "columns_sjycd": [
+      "未上过学",
+      "学前教育",
+      "小学",
+      "初中",
+      "中专",
+      "职高",
+      "高中",
+      "大学专科",
+      "大学本科",
+      "硕士研究生",
+      "博士研究生",
+      "其他"
+    ],
+    "columns_mz": [
+      "汉族",
+      "壮族",
+      "满族",
+      "回族",
+      "苗族",
+      "维吾尔族",
+      "土家族",
+      "彝族",
+      "蒙古族",
+      "藏族",
+      "布依族",
+      "侗族",
+      "瑶族",
+      "朝鲜族",
+      "白族",
+      "哈尼族",
+      "哈萨克族",
+      "黎族",
+      "傣族",
+      "畲族",
+      "傈僳族",
+      "仡佬族",
+      "东乡族",
+      "高山族",
+      "拉祜族",
+      "水族",
+      "佤族",
+      "纳西族",
+      "羌族",
+      "土族",
+      "仫佬族",
+      "锡伯族",
+      "柯尔克孜族",
+      "达斡尔族",
+      "景颇族",
+      "毛南族",
+      "撒拉族",
+      "布朗族",
+      "塔吉克族",
+      "阿昌族",
+      "普米族",
+      "鄂温克族",
+      "怒族",
+      "京族",
+      "基诺族",
+      "德昂族",
+      "保安族",
+      "俄罗斯族",
+      "裕固族",
+      "乌孜别克族",
+      "门巴族",
+      "鄂伦春族",
+      "独龙族",
+      "塔塔尔族",
+      "赫哲族",
+      "珞巴族",
+      "其他"
+    ],
+    "columns_zhzt": [
+      "外出",
+      "区内流动",
+      "区外流入",
+      "常住",
+      "其他"
+    ],
+    "columns_zhsf": [
+      "村(居)民代表",
+      "中共党员",
+      "预备党员",
+      "空挂户",
+      "群众",
+      "其他"
+    ],
+    "columns_zhrylx": [
+      "普通人员",
+      "精神病人",
+      "社区矫正人员",
+      "危险品从业人员",
+      "吸毒人员",
+      "刑满释放人员",
+      "重点青少年",
+      "重点上访人员",
+      "其他"
+    ],
+    "columns_relationship": [
+      "户主",
+      "配偶",
+      "子女",
+      "父母",
+      "孙子/孙女",
+      "媳婿",
+      "岳父母",
+      "兄弟姐妹",
+      "租客",
+      "其他"
+    ],
+    "columns_gender": [
+      "男",
+      "女"
+    ]
+  }
+}

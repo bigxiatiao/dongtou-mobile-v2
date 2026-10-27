@@ -1,0 +1,67 @@
+/* node department-behavior.test.js — department business invariants, independent of DOM. */
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const box={window:{}};
+for(const n of ['collection-data','transfer-data','home-data','transfer-store','department-data','department-store'])vm.runInNewContext(fs.readFileSync(`${__dirname}/${n}.js`,'utf8'),box,{filename:n});
+const s=box.window.DepartmentStore,c=box.window.DepartmentData;
+const clone=x=>JSON.parse(JSON.stringify(x));
+for(const a of s.data.accounts){
+ s.switchAccount(a.accountId);assert.ok(s.units().length>=2);assert.equal(s.people().length,14);assert.equal(new Set(s.tasks().map(t=>t.status)).size,5);
+ assert.ok(s.units().every(u=>!('gridId' in u)&&!('roomId' in u)));
+ const own=s.units()[0],foreign=s.data.units.find(u=>u.departmentId!==a.id);
+ assert.equal(s.unit(foreign.id),null);assert.equal(s.saveUnit({name:'攻击'},foreign.id).ok,false);
+ const foreignTask=s.data.tasks.find(t=>t.departmentId!==a.id);assert.equal(s.saveTask(foreignTask.id,{transferResult:'已落实安置'}).ok,false);
+ assert.equal(s.data.people.filter(p=>p.departmentId===a.id).every(p=>!p.phone||s.validPhone(p.phone)),true,'seed phone validity');
+ const before=s.tasks().map(t=>t.id).join();own.tagIds=['fake-risk'];assert.equal(s.tasks().map(t=>t.id).join(),before,'tags never change instruction targets');delete own.tagIds;
+ const unit=s.units()[0],out=s.saveUnit(clone(unit),unit.id);assert.equal(out.ok,true,JSON.stringify(out));
+ for(const p of s.people())assert.equal(s.savePerson(clone(p),p.id,p.membership.id).ok,true,p.name);
+ s.draft('test',{a:1});s.switchAccount(s.data.accounts.find(d=>d.id!==a.id).accountId);assert.equal(s.draft('test'),null);s.switchAccount(a.accountId);assert.equal(s.draft('test').a,1);s.draft('test',null);
+}
+s.reset();
+const e=s.executions()[0],ids=e.personTaskIds,first=s.task(ids[0]);
+assert.equal(s.saveTask(first.id,{transferResult:'已落实安置',destination:{}}).ok,true,'only result required');assert.equal(first.status,'待复核');
+assert.equal(s.review(first.id).ok,true);assert.equal(first.status,'已复核');assert.equal(first.reviewRecords.length,1);
+assert.equal(s.review(first.id,{result:'退回补正'}).ok,true);assert.equal(first.status,'已复核');assert.equal(first.reviewRecords.length,2);assert.equal(s.progress(e.id).corrections.length,1);
+assert.equal(s.saveTask(first.id,{destination:{type:'relative',contact:'王女士'},note:''},'supplement').ok,true);assert.equal(first.reviewRecords.length,2);
+assert.equal(s.saveTask(first.id,{destination:{type:'hotel',placeName:'示例酒店'}},'modify').ok,false);
+assert.equal(s.saveTask(first.id,{destination:{type:'hotel',placeName:'示例酒店'},changeReason:'亲友无法接应'},'modify').ok,true);assert.equal(first.status,'已复核');
+assert.equal(s.resolve(first.id,first.pendingCorrections[0].id).ok,true);assert.equal(first.reviewRecords.length,2);
+assert.equal(s.saveMeasures(e.id,{measures:{stopWork:'已落实'}}).ok,true);assert.equal(s.progress(e.id).complete,false,'measure does not complete people');
+for(const tid of ids.slice(1)){assert.equal(s.saveTask(tid,{transferResult:'已落实安置'}).ok,true);assert.equal(s.review(tid).ok,true);}
+assert.equal(s.progress(e.id).complete,true);assert.equal(s.saveMeasures(e.id,{measures:{stopWork:'未落实'}}).ok,false,'revert requires reason');
+assert.equal(s.saveMeasures(e.id,{measures:{stopWork:'未落实'},changeReason:'发现仍在施工'}).ok,true);assert.equal(s.progress(e.id).complete,false);assert.ok(ids.every(tid=>s.task(tid).status==='已复核'));
+s.review(first.id,{result:'异常确认',note:'联系信息待核对'});s.saveMeasures(e.id,{measures:{stopWork:'已落实'}});assert.equal(s.progress(e.id).complete,false,'correction blocks completion');s.resolve(first.id,first.pendingCorrections.at(-1).id);assert.equal(s.progress(e.id).complete,true);
+const zero=s.executions().find(e=>e.noTransferRequired);assert.equal(s.progress(zero.id).complete,true);const empty=s.executions().find(e=>!e.noTransferRequired&&!e.personTaskIds.length);s.saveMeasures(empty.id,{measures:{stopWork:'已落实'}});assert.equal(s.progress(empty.id).complete,false);assert.equal(s.progress(empty.id).rosterPending,true);
+const supplementary=s.executions().find(x=>x.unitId===zero.unitId&&x.id!==zero.id);assert.equal(s.progress(supplementary.id).complete,false);assert.equal(s.progress(zero.id).complete,true,'same unit different instruction independent');
+s.reset();const t=s.tasks()[0];
+for(const [result,status] of [['人员不在现场','待转移'],['拒绝转移','异常跟进'],['联系不上','异常跟进'],['其他异常','异常跟进'],['转移途中','转移途中'],['已落实安置','待复核']]){assert.equal(s.saveTask(t.id,{transferResult:result,destination:{type:'center',placeId:'shelter-001'}}).ok,true);assert.equal(t.status,status);if(result==='拒绝转移')assert.equal(t.destination,null);}
+s.reset();assert.equal(s.saveTask(s.tasks()[0].id,{transferResult:'已落实安置',destination:{type:'unknown'}}).ok,false);
+const u=s.units()[0],p=s.people(u.id)[0],original=s.tasks()[0],oldMember=p.membership.id,second=s.units()[1];
+const moved=s.move(p.id,oldMember,second.id);assert.equal(moved.ok,true);assert.notEqual(moved.item.membership.id,oldMember);assert.equal(original.unitId,u.id);assert.equal(s.membership(oldMember).status,'已离开');assert.equal(s.progress(original.executionId).missing.length,0);
+const oldCount=s.tasks().length,newP=s.savePerson({name:'新工人',membership:{unitId:u.id,identity:'工人',status:'在册'},tagIds:[]});assert.equal(newP.ok,true);assert.equal(s.tasks().length,oldCount);assert.equal(s.progress(original.executionId).missing.length,1,'new roster member needs backend list reconciliation');
+s.reset();const all=s.executions()[0].personTaskIds,rows=all.map((id,i)=>({id,values:{transferResult:'已落实安置',destination:i<4?{type:'center',placeId:'shelter-001'}:i===4?{type:'relative',contact:'王女士',phone:'13700001111'}:{type:'hotel',placeName:'海湾示例酒店'}}}));
+rows[4].values.destination.phone='bad';const result=s.batch(rows);assert.equal(result.filter(r=>r.ok).length,5);assert.equal(s.task(all[4]).status,'待转移');rows[4].values.destination.phone='13700001111';assert.equal(s.batch([rows[4]])[0].ok,true);assert.equal(s.task(all[0]).destination.address,box.window.TransferDemoData.shelters[0].address);assert.equal(s.task(all[4]).destination.contact,'王女士');assert.equal(s.task(all[5]).destination.placeName,'海湾示例酒店');
+const history=s.task(all[0]).events.length;s.batch([{id:all[0],values:{}},{id:all[0],values:{}}],'review');assert.equal(s.task(all[0]).reviewRecords.length,1);assert.equal(s.task(all[0]).events.length,history+1,'duplicates do not append twice');
+assert.equal(s.data.units.some(u=>u.tagIds),false);assert.equal(s.validPhone('138****1234'),false);assert.equal(s.validPhone('0577-60002001'),true);
+s.reset();
+const mapUnit=s.units()[0],mapTask=s.tasks()[0],mapMembership=s.people(mapUnit.id)[0].membership;
+const beforeVerification=clone({status:mapTask.status,measures:s.execution(mapTask.executionId).measures,person:mapMembership.verification});
+assert.equal(s.verify('unit',mapUnit.id).ok,true);
+assert.equal(s.unit(mapUnit.id).verification.status,'verified');
+assert.equal(s.mapGroups('collection').find(g=>g.unit.id===mapUnit.id).color,'green');
+assert.deepEqual(clone({status:mapTask.status,measures:s.execution(mapTask.executionId).measures,person:s.membership(mapMembership.id).verification}),beforeVerification,'archive verification does not execute tasks or verify people');
+assert.equal(s.mapGroups('task').flatMap(g=>g.items).every(i=>['待转移','待复核','异常跟进'].includes(i.status)),true);
+assert.equal(s.saveTask(mapTask.id,{transferResult:'转移途中'}).ok,true);
+assert.equal(s.mapGroups('task').flatMap(g=>g.items).some(i=>i.id===mapTask.id),false,'in-transit leaves pending map');
+const capacity=clone(box.window.TransferDemoData.shelters);
+assert.equal(s.saveTask(mapTask.id,{transferResult:'已落实安置',destination:{type:'center',placeId:'shelter-001'}}).ok,true);
+assert.equal(s.mapGroups('task').flatMap(g=>g.items).find(i=>i.id===mapTask.id).color,'yellow');
+assert.equal(s.review(mapTask.id).ok,true);
+assert.equal(s.mapGroups('task').flatMap(g=>g.items).some(i=>i.id===mapTask.id),false);
+assert.deepEqual(clone(box.window.TransferDemoData.shelters),capacity,'placement and review never change occupancy');
+mapUnit.principalName='更新后负责人';mapUnit.principalPhone='0577-60002003';
+assert.ok(s.contacts().some(c=>c.name==='更新后负责人'&&c.phone==='0577-60002003'));
+const ins=s.instruction(mapTask.instructionId),targets=clone(ins.targetUnitTypes);
+ins.targetUnitTypes=['school'];assert.equal(s.execution(mapTask.executionId),null,'type mismatch blocks execution');ins.targetUnitTypes=targets;
+assert.equal(s.saveUnit({...mapUnit,streetId:'invalid'},mapUnit.id).ok,false);
+console.log('PASS: archive verification independent, map projections update, shelter occupancy immutable, dynamic contacts and instruction type scope');
+console.log('PASS: four-department isolation, complete rosters, round-trip fields, state triggers, independent measures, corrections, zero-person boundaries, frozen tasks and batch partial failure');

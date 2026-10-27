@@ -1,0 +1,69 @@
+.shelter-cap {
+  height:7px;
+  background:var(--slate-3);
+  border-radius:var(--radius-control);
+  overflow:hidden;
+  margin-top:7px
+}
+
+.shelter-cap i {
+  display:block;
+  height:100%;
+  background:var(--green)
+}
+
+.shelter-cap i.warn {
+  background:var(--orange)
+}
+
+.checkin-box {
+  height:155px;
+  margin:12px;
+  border:var(--hairline) dashed var(--cyan-7);
+  border-radius:var(--radius-card);
+  background:var(--cyan-2);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  color:var(--slate-11)
+}
+
+.checkin-box b {
+  display:block;
+  font-size:var(--text-lg)
+}
+
+.shelter-summary {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px;
+  padding:10px 12px
+}
+
+.shelter-summary div {
+  background:var(--blue-2);
+  padding:8px;
+  text-align:center
+}
+
+.shelter-summary b {
+  display:block;
+  font-size:var(--text-lg)
+}
+
+.shelter-summary small {
+  color:var(--muted);
+  font-size:var(--text-sm)
+}
+
+.bottom {
+  grid-template-columns:repeat(6,1fr)
+}
+
+#shelter-register .form-grid,#shelter-scan-result .form-grid,#shelter-transfer-receive .form-grid {
+  grid-template-columns:1fr 1fr
+}
+
+#shelter-register .photo,#shelter-scan-result .photo,#shelter-transfer-receive .photo {
+  min-height:82px
+}

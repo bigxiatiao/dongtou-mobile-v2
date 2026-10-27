@@ -1,0 +1,154 @@
+/* 两种角色共享首页行动、通知和快捷入口；顶部基层身份样式按角色限定。 */
+body[data-role="grid"] .top {height:auto;min-height:78px;padding:12px;gap:8px;flex-wrap:wrap}
+body[data-role="grid"] .top .logo {flex:0 0 32px;width:32px;height:32px;border-radius:var(--radius-card);font-size:var(--text-md)}
+body[data-role="grid"] .top .brand {flex:1;min-width:0;font-size:var(--text-lg);line-height:1.45;font-weight:750;white-space:normal;overflow-wrap:anywhere}
+body[data-role="grid"] .top .brand-context {margin-top:3px;gap:6px;flex-wrap:wrap;font-size:var(--text-sm)}
+body[data-role="grid"] .top .brand-scope {position:relative;max-width:170px;min-height:44px;height:auto;font-size:var(--text-sm);padding:2px 5px;line-height:18px;border:0;background:transparent}
+body[data-role="grid"] .top .brand-scope::before {content:"";position:absolute;inset:11px 0;border:var(--hairline) solid var(--white-a9);border-radius:var(--radius-control);background:var(--white-a5);pointer-events:none}
+body[data-role="grid"] .top .brand-scope span, body[data-role="grid"] .top .brand-scope b {position:relative}
+body[data-role="grid"] .top .brand-user {font-size:var(--text-sm)}
+body[data-role="grid"] .brand-context .scope-options {top:calc(100% + 6px)}
+body[data-role="grid"] .brand-context .scope-options button {min-height:44px}
+body[data-role="grid"] .top .role-switch {flex:0 0 auto;align-self:flex-start;margin-top:2px}
+body[data-role="grid"] .top .role-switch button {padding:6px;font-size:var(--text-sm);min-height:44px;min-width:44px}
+.latest-notice {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:0;
+  margin-top:10px;
+  margin-bottom:0
+}
+
+.latest-notice b {
+  flex:0 0 auto;
+  white-space:nowrap;
+  font-size:var(--text-sm)
+}
+
+.latest-notice button {
+  min-width:0;
+  flex:1;
+  border:0;
+  background:none;
+  color:inherit;
+  text-align:left;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  font-size:var(--text-sm);
+  padding:0
+}
+
+.latest-notice>span {
+  flex:0 0 auto;
+  font-size:var(--text-lg);
+  color:var(--slate-11);
+  line-height:1
+}
+
+.unread-dot {
+  flex:0 0 auto;
+  font-style:normal;
+  display:inline-grid;
+  place-items:center;
+  min-width:18px;
+  height:18px;
+  padding:0 5px;
+  border-radius:var(--radius-card);
+  background:var(--red-9);
+  color:var(--surface);
+  font-size:var(--text-sm)
+}
+
+.notice-item {
+  width:100%;
+  border:var(--hairline) solid var(--blue-6);
+  border-radius:var(--radius-card);
+  background:var(--surface);
+  padding:13px;
+  margin-bottom:9px;
+  text-align:left;
+  color:var(--slate-12)
+}
+
+.notice-item b {
+  display:block;
+  font-size:var(--text-sm);
+  margin-bottom:5px
+}
+
+.notice-item small {
+  display:block;
+  color:var(--slate-11);
+  font-size:var(--text-sm);
+  margin-top:5px
+}
+
+.notice-body {
+  font-size:var(--text-sm);
+  line-height:1.8;
+  color:var(--slate-11)
+}
+
+/* 通知页面在部门角色下也可访问，不能依赖基层专用样式。 */
+:is(#notice-list, #notice-detail) .list-toolbar {
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-bottom:10px
+}
+:is(#notice-list, #notice-detail) .list-toolbar .back {
+  font-size:var(--text-lg);
+  padding:0 7px;
+  min-width:44px;
+  min-height:44px
+}
+:is(#notice-list, #notice-detail) .list-toolbar h1 {
+  flex:1;
+  min-width:0
+}
+#notice-list .status-count {
+  flex:0 0 auto;
+  font-size:var(--text-sm);
+  color:var(--slate-11);
+  margin-left:auto
+}
+.notice-item b, .notice-body {overflow-wrap:anywhere}
+.home-action-card {overflow:hidden;border:var(--hairline) solid var(--blue-6);background:linear-gradient(135deg,var(--surface),var(--cyan-2))}
+.home-action-summary {display:flex;align-items:center;gap:12px;padding:13px 12px}
+.home-action-info {flex:1;min-width:0}
+.home-action-heading {display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.home-eyebrow {font-size:var(--text-sm);color:var(--slate-11);font-weight:600;letter-spacing:1px}
+.home-action-state {font-size:var(--text-sm);line-height:18px;color:var(--cyan-11);background:var(--green-3);padding:0 6px;border-radius:var(--radius-control)}
+.home-action-name {font-size:var(--text-lg);line-height:1.45;margin:5px 0 0;color:var(--slate-12);overflow-wrap:anywhere}
+.home-action-name.is-empty {font-size:var(--text-md);color:var(--slate-11)}
+.home-weather {display:flex;align-items:center;justify-content:flex-end;gap:6px;flex-wrap:wrap;flex:0 0 auto;max-width:132px}
+.home-weather img {display:block;flex:0 0 auto;width:63px;height:54px;object-fit:contain}
+.home-weather-empty {font-size:var(--text-sm);color:var(--slate-11)}
+.home-action-card .latest-notice {margin:0;border-radius:0;border-top:var(--hairline) solid var(--cyan-6);background:var(--blue-3);padding:3px 12px;min-height:44px}
+.home-action-card .latest-notice button {min-height:44px;font-size:var(--text-sm)}
+.home-shortcuts .ph {border-bottom:0;padding-bottom:5px}
+.home-shortcut-grid {display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:7px 12px 14px}
+.home-shortcut {display:flex;align-items:center;gap:8px;text-align:left;min-height:74px;min-width:0;padding:12px 10px;border:var(--hairline) solid var(--blue-6);border-radius:var(--radius-card);background:var(--blue-2);color:var(--slate-11);font-size:var(--text-md);font-weight:700}
+.home-shortcut:active {background:var(--blue-3);border-color:var(--blue-8)}
+.home-shortcut-icon {display:grid;place-items:center;width:32px;height:36px;flex:0 0 32px;color:var(--blue-11)}
+.home-shortcut-icon.shelter {color:var(--cyan-11)}
+.home-shortcut-icon svg {width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.home-shortcut-arrow {margin-left:auto;color:var(--slate-11);font-size:var(--text-lg);font-weight:400}
+@media(max-width:350px) {
+ .home-action-summary {gap:10px;padding:12px}
+ .home-action-name {font-size:var(--text-lg)}
+ .home-weather {max-width:114px}
+ .home-weather img {width:54px;height:auto;aspect-ratio:63/54}
+ body[data-role="grid"] .top {gap:7px;padding:10px;min-height:82px}
+ body[data-role="grid"] .top .logo {display:none}
+ body[data-role="grid"] .top .brand {font-size:var(--text-lg)}
+ body[data-role="grid"] .top .brand-context {gap:4px}
+ body[data-role="grid"] .top .brand-scope {max-width:140px}
+ body[data-role="grid"] .top .brand-user {font-size:var(--text-sm)}
+ body[data-role="grid"] .top .role-switch button {padding:5px}
+ .home-shortcut {gap:5px;font-size:var(--text-sm);padding:10px 8px}
+ .home-shortcut-icon {width:27px;flex-basis:27px}
+ .home-shortcut-grid {gap:8px;padding-left:10px;padding-right:10px}
+}

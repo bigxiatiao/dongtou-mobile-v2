@@ -1,0 +1,36 @@
+/* 基层首页示意地图：点位与弹层保持手机点击尺寸。 */
+.home-map-panel{height:228px;position:relative;isolation:isolate;overflow:hidden;background:var(--slate-4);background-image:linear-gradient(26deg,transparent 36%,var(--surface) 36.5%,var(--surface) 39%,transparent 39.5%),linear-gradient(112deg,transparent 53%,var(--surface) 53.5%,var(--surface) 57%,transparent 57.5%),linear-gradient(165deg,transparent 72%,var(--cyan-4) 72.5%);border-top:var(--hairline) solid var(--slate-6)}
+.home-map-land{position:absolute;inset:14% 17% 20% 8%;border:var(--hairline) solid var(--slate-7);border-radius:32% 16% 38% 19%;background:repeating-linear-gradient(90deg,transparent 0 29px,var(--white-a11) 30px 31px);z-index:-1}
+.home-map-example{position:absolute;right:10px;top:9px;padding:4px 7px;border-radius:var(--radius-control);background:var(--white-a12);color:var(--slate-11);font-size:var(--text-sm)}
+.home-map-marker{position:absolute;transform:translate(-50%,-50%);width:44px;height:44px;border:0;background:transparent;display:grid;place-items:center;padding:0;cursor:pointer}
+.home-map-marker span{display:grid;place-items:center;min-width:30px;height:30px;padding:0 6px;background:var(--point-color);border:var(--hairline) solid var(--surface);border-radius:50%;box-shadow:none;color:var(--surface);font-size:var(--text-sm);font-weight:700}
+.home-map-marker.yellow span{color:var(--amber-12)}
+.home-map-marker:focus-visible{outline:2px solid var(--blue-11);border-radius:50%}
+.home-map-marker.red,.home-map-dot.red,.home-map-status.red{--point-color:var(--red-10)}
+.home-map-marker.orange,.home-map-dot.orange,.home-map-status.orange{--point-color:var(--orange-9)}
+.home-map-marker.yellow,.home-map-dot.yellow,.home-map-status.yellow{--point-color:var(--amber-10)}
+.home-map-marker.green,.home-map-dot.green,.home-map-status.green{--point-color:var(--green-10)}
+.home-map-legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 12px;background:var(--surface);color:var(--slate-11);font-size:var(--text-sm)}
+.home-map-legend>span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.home-map-dot{width:8px;height:8px;background:var(--point-color);border-radius:50%}
+.home-map-empty{position:absolute;inset:0;display:grid;place-items:center;color:var(--slate-11);font-size:var(--text-sm);background:var(--white-a12)}
+.home-map-sheet{position:fixed;inset:0;z-index:80;display:flex;align-items:flex-end;justify-content:center}
+.home-map-backdrop{position:absolute;inset:0;background:var(--black-a6);border:0;width:100%}
+.home-map-sheet-body{position:relative;background:var(--blue-2);border-radius:var(--radius-sheet) var(--radius-sheet) 0 0;width:min(100%,560px);max-height:78dvh;padding-bottom:env(safe-area-inset-bottom);box-shadow:none;overflow:auto}
+.home-map-sheet-body header{display:flex;align-items:center;justify-content:space-between;padding:10px 12px 10px 18px;border-bottom:var(--hairline) solid var(--slate-6)}
+.home-map-sheet-body h2{font-size:var(--text-md);margin:0;color:var(--slate-12)}
+.home-map-sheet-body header>button{width:44px;height:44px;background:transparent;border:0;color:var(--slate-11);font-size:var(--text-lg)}
+.home-map-choices{padding:12px}
+.home-map-choice{display:block;text-align:left;width:100%;padding:14px;background:var(--surface);border:var(--hairline) solid var(--slate-6);border-radius:var(--radius-card);margin-bottom:9px;color:var(--slate-12)}
+.home-map-choice>div{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.home-map-choice b{font-size:var(--text-md)}
+.home-map-status{font-size:var(--text-sm);color:var(--point-color);white-space:nowrap}
+.home-map-choice small{display:block;font-size:var(--text-sm);color:var(--slate-11);line-height:1.6;margin-top:7px}
+.home-map-choice-action{display:block;text-align:right;margin-top:9px;font-size:var(--text-sm);color:var(--blue-11)}
+
+#homeMapCard>.ph{display:flex;align-items:center;justify-content:space-between;min-height:48px;gap:12px}
+.home-map-switch{display:flex;flex:0 0 auto;margin-left:auto;gap:2px;border:var(--hairline) solid var(--blue-6);background:var(--blue-2);padding:2px;border-radius:var(--radius-control)}
+.home-map-switch button{position:relative;border:0;background:transparent;color:var(--slate-11);height:28px;min-width:44px;border-radius:var(--radius-control);font-size:var(--text-sm);padding:0 8px;cursor:pointer}
+.home-map-switch button::before{content:"";position:absolute;inset:-8px 0}
+.home-map-switch button.active{background:var(--blue-11);color:var(--surface);box-shadow:none}
+.home-map-switch button:focus-visible{outline:2px solid var(--blue-11);outline-offset:2px}

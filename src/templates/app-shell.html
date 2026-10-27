@@ -1,0 +1,883 @@
+<main id="app">
+<header class="top">
+<div class="logo">防</div>
+<div class="brand" id="brandText"><span class="brand-title">洞头网格+应急工作端</span><div class="brand-context" id="brandContext"><button class="brand-scope" data-collection="scope-open"><span id="scopePathText">东屏街道 / 东屏03网格</span><b><i data-tabler=chevron-down></i></b></button><span class="brand-user">网格员 · 张海燕</span><div class="scope-options hidden" id="scopeOptions"></div></div>
+<div class="brand-context hidden" id="departmentContext"></div>
+</div>
+<div class="role-switch">
+<button class="on" data-role="grid">基层</button>
+<button data-role="dept">部门</button>
+</div>
+</header>
+<section class="view active" id="home">
+<div class="card home-action-card" id="homeActionCard">
+<div class="home-action-summary">
+<div class="home-action-info">
+<div class="home-action-heading"><span class="home-eyebrow">当前行动</span><span class="home-action-state" id="homeActionState"></span></div>
+<h1 class="home-action-name" id="homeActionName"></h1>
+</div>
+<div class="home-weather" id="homeWeather" aria-label="当前有效气象预警"></div>
+</div>
+<div class="notice latest-notice" id="latestNotice">
+</div>
+</div>
+<div class="head">
+<div>
+<h1>我的任务</h1>
+<div class="sub">任务、风险与基础数据</div>
+</div>
+<div class="chip">
+<b>18</b>待处理</div>
+</div>
+<div class="metrics">
+<div class="metric tap" data-workbench="transfer-list">
+<label>转移任务</label>
+<strong class="hot">12</strong>
+<span class="tag r" id="homeTransferStatus"></span>
+</div>
+<div class="metric tap" data-workbench="risk-list">
+<label>风险排查</label>
+<strong>8</strong>
+<span class="tag o">待排查5 · 处理中3</span>
+</div>
+<div class="metric tap" data-workbench="base-list">
+<label>数据采集</label>
+<strong>18</strong>
+<span class="tag b" id="baseMetricStatus">待核查2 · 已核查2</span>
+</div>
+</div>
+<div class="card" id="homeMapCard">
+<div class="ph">辖区动态<div class="home-map-switch" role="group" aria-label="地图内容"><button type="button" class="active" data-home-map-mode="task" aria-pressed="true">任务</button><button type="button" data-home-map-mode="collection" aria-pressed="false">采集</button></div></div>
+<div id="homeMapPanel" class="home-map-panel" aria-label="辖区示意地图"></div>
+<div id="homeMapLegend" class="home-map-legend" aria-label="地图图例"></div>
+</div>
+<div class="card home-shortcuts">
+<div class="ph">快捷搜索</div>
+<div class="home-shortcut-grid">
+<button class="home-shortcut" data-home-search>
+<span class="home-shortcut-icon"><i data-tabler=home-search></i></span>
+<span>找人找房</span><span class="home-shortcut-arrow" aria-hidden="true"><i data-tabler=chevron-right></i></span>
+</button>
+<button class="home-shortcut" data-grid-shelter="open">
+<span class="home-shortcut-icon shelter"><i data-tabler=home-shield></i></span>
+<span>安置点查询</span><span class="home-shortcut-arrow" aria-hidden="true"><i data-tabler=chevron-right></i></span>
+</button>
+</div>
+</div>
+</section>
+<section class="view" id="grid-restore"></section>
+<section class="view" id="transfer"></section>
+<section class="view" id="review"></section>
+<section class="view" id="risk">
+<div class="head">
+<div>
+<h1>房屋风险排查</h1>
+<div class="sub">本次动态风险 · 不直接改主数据</div>
+</div>
+<button class="btn" data-tab="tasks"><i data-tabler=chevron-left></i> 返回</button>
+</div>
+<div class="card">
+<div class="row">
+<div class="avatar"><i data-tabler=home></i></div>
+<div class="info">
+<b>北岙渔港路52号 · 7幢</b>
+<small>底数：住宅 · 3层 · 5户9人 · 鉴定C级</small>
+<span class="tag r">危房底数</span>
+</div>
+<button class="btn" data-action="route">导航</button>
+</div>
+<div class="notice warn">只记录当前积水、裂缝、用电、通行和人员在场情况；底数错误另发起数据修正。</div>
+</div>
+<div class="card">
+<div class="voice-title">现场环境<button class="voice" data-action="voice"><i data-tabler=microphone></i> 语音填写</button>
+</div>
+<div class="field">
+<div class="form-grid">
+<label>积水深度<select>
+<option>约15厘米</option>
+<option>无积水</option>
+<option>10—30厘米</option>
+<option>30厘米以上</option>
+</select>
+</label>
+<label>水位趋势<select>
+<option>持续上涨</option>
+<option>基本稳定</option>
+<option>正在下降</option>
+</select>
+</label>
+<label>墙体 / 地基<select>
+<option>发现新裂缝</option>
+<option>无明显异常</option>
+<option>裂缝扩大</option>
+</select>
+</label>
+<label>用电安全<select>
+<option>一楼漏电风险</option>
+<option>已断电</option>
+<option>无异常</option>
+</select>
+</label>
+<label>进出道路<select>
+<option>小车不可通行</option>
+<option>正常通行</option>
+<option>完全中断</option>
+</select>
+</label>
+<label>边坡 / 临崖<select>
+<option>暂未发现位移</option>
+<option>落石</option>
+<option>局部滑塌</option>
+</select>
+</label>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="voice-title">人员与处置<button class="voice" data-action="voice"><i data-tabler=microphone></i> 语音填写</button>
+</div>
+<div class="field">
+<div class="form-grid">
+<label>现场在户人数<input value="6">
+</label>
+<label>需转移人数<input value="4">
+</label>
+<label>已自行离开<input value="2">
+</label>
+<label>失联人数<input value="0">
+</label>
+<label class="wide">重点协助人员<select>
+<option>1名行动不便老人</option>
+<option>无</option>
+</select>
+</label>
+</div>
+</div>
+<div class="field">
+<span class="tag r">建议立即转移</span>
+<span class="tag o">设置警戒</span>
+<span class="tag b">安排断电</span>
+<span class="tag p">部门处置</span>
+</div>
+</div>
+<div class="card">
+<div class="ph">照片与风险结论<small>09:42 · 定位误差6m</small>
+</div>
+<div class="photo" data-action="camera" data-upload-purpose="risk"></div>
+<div class="score">
+<strong>高</strong>
+<div>
+<b>建议立即转移4人并设置警戒</b>
+<br>水位上涨 + 新裂缝 + 漏电风险 + 道路受阻</div>
+</div>
+<div class="field">
+<label>现场说明 <button class="voice" data-action="voice"><i data-tabler=microphone></i> 说话转文字</button>
+</label>
+<textarea>一楼积水约15厘米，东侧发现新裂缝，已提醒关闭电源。</textarea>
+</div>
+<div class="actions">
+<button class="btn" data-action="draft">暂存</button>
+<button class="btn primary" data-action="submit-risk">上报并生成处置</button>
+<button class="btn" data-action="apply-release">申请风险解除</button>
+</div>
+<div class="offline">上报后生成隐患记录、转移建议和部门处置单。</div>
+</div>
+</section>
+<section class="view dp-view" id="dept"></section>
+<section class="view dp-view" id="department-workspace"></section>
+<section class="view" id="me">
+<div class="head">
+<div>
+<h1>我的</h1>
+<div class="sub">张海燕 · 东屏03网格 · 在线</div>
+</div>
+</div>
+<div class="card">
+<div class="ph">今日统计</div>
+<div class="metrics" style="padding:11px 12px;margin:0">
+<div class="metric">
+<label>转移回执</label>
+<strong>5</strong>
+<span>待复核2</span>
+</div>
+<div class="metric">
+<label>风险排查</label>
+<strong>4</strong>
+<span>高风险1</span>
+</div>
+<div class="metric">
+<label>底数修正</label>
+<strong>7</strong>
+<span>待审核2</span>
+</div>
+<div class="metric">
+<label>离线草稿</label>
+<strong class="hot">3</strong>
+<span>待补传</span>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="ph">现场设置</div>
+<div class="field">
+<label>自动记录定位</label>
+<input type="checkbox" checked>
+</div>
+<div class="field">
+<label>语音转文字辅助录入</label>
+<input type="checkbox" checked>
+</div>
+<div class="field">
+<label>网络恢复自动补传</label>
+<input type="checkbox" checked>
+</div>
+</div>
+</section>
+<section class="view" id="transfer-list">
+<div class="list-toolbar">
+<button class="btn back" data-workbench="home" aria-label="返回上一页"><i data-tabler=chevron-left></i></button>
+<h1>转移任务</h1>
+<button class="mini-btn" data-workbench="batch-start">批量办理</button>
+</div>
+<div class="sub" id="transferListSummary" style="margin:-5px 0 10px"></div>
+<div class="transfer-grouping" id="transferGrouping" aria-label="任务分组方式"></div>
+<div class="batch-bar" id="batchBar">
+<span>已选 <b id="selectedCount">0</b> 人</span>
+<button class="mini-btn" data-workbench="batch-cancel">取消批量</button>
+<button class="btn primary" data-workbench="batch-detail">进入办理</button>
+</div>
+<div class="tabs transfer-tabs">
+<button class="active" data-status="all">全部</button>
+<button data-status="待转移">待转移</button>
+<button data-status="转移途中">转移途中</button>
+<button data-status="待复核">待复核</button>
+<button data-status="已复核">已复核</button>
+<button data-status="异常跟进">异常跟进</button>
+<button data-status="待返家">待返家</button>
+<button data-status="已返家">已返家</button>
+<button data-status="返家异常">返家异常</button>
+</div>
+<div class="card" id="transferRows">
+</div>
+</section>
+<section class="view" id="risk-list">
+<div class="list-toolbar">
+<button class="btn back" data-workbench="home" aria-label="返回上一页"><i data-tabler=chevron-left></i></button>
+<h1>风险排查</h1>
+<span class="status-count">8项</span>
+</div>
+<div class="tabs generic-tabs">
+<button class="active" data-status="all">全部8</button>
+<button data-status="待排查">待排查5</button>
+<button data-status="处理中">处理中2</button>
+<button data-status="已完成">已完成1</button>
+</div>
+<div class="card" id="riskRows">
+<div class="row task-row" data-status="待排查" data-workbench="risk">
+<div class="avatar"><i data-tabler=home></i></div>
+<div class="info">
+<b>北岙渔港路52号7幢</b>
+<small>积水、裂缝、用电、通行</small>
+<span class="tag r">待排查</span>
+</div>
+<span class="arrow"><i data-tabler=chevron-right></i></span>
+</div>
+<div class="row task-row" data-status="处理中" data-workbench="risk">
+<div class="avatar"><i data-tabler=building-factory></i></div>
+<div class="info">
+<b>东屏滨海工地</b>
+<small>深基坑积水 · 住建协同</small>
+<span class="tag o">处理中</span>
+</div>
+<span class="arrow"><i data-tabler=chevron-right></i></span>
+</div>
+<div class="row task-row" data-status="已完成" data-workbench="risk">
+<div class="avatar"><i data-tabler=school></i></div>
+<div class="info">
+<b>东屏实验小学</b>
+<small>校舍、地下空间、复课条件</small>
+<span class="tag g">已完成</span>
+</div>
+<span class="arrow"><i data-tabler=chevron-right></i></span>
+</div>
+</div>
+</section>
+<section class="view" id="base-list">
+<div class="list-toolbar">
+<button class="btn back" data-workbench="home" aria-label="返回上一页"><i data-tabler=chevron-left></i></button>
+<h1>数据采集</h1>
+<span class="status-count" id="collectionCount">0条</span>
+</div>
+<div class="collection-tools">
+<div class="view-switch" id="collectionViewSwitch"><button class="active" data-collection-mode="list">列表</button><button data-collection-mode="map">地图</button></div>
+<button class="search-icon" aria-label="搜索" data-collection="search-open"><i data-tabler=search></i></button>
+</div>
+<div id="collectionListView">
+<div class="tabs collection-status-tabs"><button class="active" data-collection-status="pending">待核查</button><button data-collection-status="verified">已核查</button></div>
+<div class="card" id="collectionRows"></div>
+</div>
+<div id="collectionMapView" class="collection-map hidden">
+<div class="demo-map" id="collectionMap"><div class="map-legend"><span><i class="legend-dot pending"></i>待核查 · 门址</span><span><i class="legend-dot pending square"></i>待核查 · 楼址</span><span><i class="legend-dot verified"></i>已核查 · 门址</span><span><i class="legend-dot verified square"></i>已核查 · 楼址</span></div></div>
+</div>
+<div class="collection-bottom-actions">
+<button class="btn" data-collection="add-door"><i data-tabler=plus></i>新增门址</button>
+<button class="btn primary" data-collection="add-building"><i data-tabler=plus></i>新增楼址</button>
+</div>
+</section>
+<section class="view" id="collection-search">
+<div class="search-toolbar"><button class="btn back" data-collection="search-close" aria-label="返回上一页"><i data-tabler=chevron-left></i></button><div class="search-box"><input id="collectionSearchInput" placeholder="搜索地址、人员或用户" autocomplete="off"><button class="btn primary" data-collection="search-run">搜索</button><div class="recent-searches hidden" id="recentSearches"></div></div></div>
+<div class="search-targets" id="searchTargets"><button class="active" data-search-type="address">地址</button><button data-search-type="person">人员</button><button data-search-type="user">用户</button></div>
+<div id="collectionSearchResults"></div>
+</section>
+<section class="view" id="collection-detail">
+<div class="list-toolbar"><button class="btn back" data-collection="detail-close" aria-label="返回上一页"><i data-tabler=chevron-left></i></button><h1 id="collectionDetailTitle">对象详情</h1></div>
+<div id="collectionDetailBody"></div>
+</section>
+<div class="collection-sheet hidden" id="verifySheet" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="verifySheetTitle"><div class="collection-sheet-backdrop" data-verify-close></div><div class="collection-sheet-panel verify-panel"><div class="sheet-head"><b id="verifySheetTitle">数据核查</b><button class="close" type="button" data-verify-close aria-label="关闭"><i data-tabler=x></i></button></div><p id="verifySheetMessage" class="verify-message"></p><div id="verifyPendingPeople" class="verify-pending-list"></div><div class="detail-actions"><button class="btn" type="button" data-verify-close>取消</button><button class="btn primary" type="button" id="verifyConfirm">确认核查</button></div></div></div>
+<div class="collection-sheet hidden" id="roomPicker" aria-hidden="true"><div class="collection-sheet-backdrop" data-collection="room-picker-close"></div><div class="collection-sheet-panel"><div class="sheet-head"><b>调整户室</b><button class="close" data-collection="room-picker-close" aria-label="关闭"><i data-tabler=x></i></button></div><div class="sheet-current" id="roomPickerCurrent"></div><input class="edit-input" id="roomPickerSearch" placeholder="搜索楼栋、户室或地址"><div class="room-picker-list" id="roomPickerList"></div><div class="detail-actions"><button class="btn" data-collection="room-picker-unbind">解除户室关联</button><button class="btn primary" data-collection="room-picker-save">确认调整</button></div></div></div>
+<div class="collection-sheet hidden" id="doorPicker" aria-hidden="true"><div class="collection-sheet-backdrop" data-collection="door-picker-close"></div><div class="collection-sheet-panel" role="dialog" aria-modal="true" aria-label="选择门址"><div class="sheet-head"><b>选择关联门址</b><button class="close" data-collection="door-picker-close" aria-label="关闭"><i data-tabler=x></i></button></div><div class="sheet-current" id="doorPickerCurrent"></div><input class="edit-input" id="doorPickerSearch" placeholder="搜索当前范围已有门址" aria-label="搜索门址"><div class="room-picker-list" id="doorPickerList"></div><div class="detail-actions"><button class="btn" data-collection="door-picker-close">取消</button><button class="btn primary" data-collection="door-picker-save">确认选择</button></div></div></div>
+<section class="view" id="batch"><!-- 由 transfer.js 按所选人员渲染批量办理。 --></section>
+<section class="view" id="notice-list">
+<div class="list-toolbar">
+<button class="btn back" data-workbench="home" aria-label="返回上一页"><i data-tabler=chevron-left></i></button>
+<h1>通知消息</h1>
+<span class="status-count" id="noticeUnread">
+</span>
+</div>
+<div class="tabs" id="noticeTabs">
+<button data-message-filter="全部" class="active">全部</button>
+<button data-message-filter="未读">未读</button>
+<button data-message-filter="已读">已读</button>
+</div>
+<div id="noticeRows">
+</div>
+</section>
+<section class="view" id="notice-detail">
+<div class="list-toolbar">
+<button class="btn back" data-workbench="notice-list" aria-label="返回上一页"><i data-tabler=chevron-left></i></button>
+<h1>通知详情</h1>
+</div>
+<div id="noticeDetailBody">
+</div>
+</section>
+<section class="view" id="shelter">
+<div class="head">
+<div>
+<h1>安置点工作</h1>
+<div class="sub">在住人员、扫码核验和人员转点</div>
+</div>
+<div class="chip">
+<b>3</b>待核对</div>
+</div>
+<div class="metrics">
+<div class="metric">
+<label>授权安置点</label>
+<strong>2</strong>
+<small>常设1/临时1</small>
+</div>
+<div class="metric">
+<label>当前在住</label>
+<strong>96</strong>
+<small>任务匹配84</small>
+</div>
+<div class="metric">
+<label>待核对登记</label>
+<strong class="hot">3</strong>
+<small>非目标/重复</small>
+</div>
+<div class="metric">
+<label>转点待办</label>
+<strong>1</strong>
+<small>目标点待接收</small>
+</div>
+</div>
+<div class="card">
+<div class="ph">我的安置点</div>
+<div class="row tap" data-shelter-page="shelter-people">
+<div class="avatar"><i data-tabler=home-shield></i></div>
+<div class="info">
+<b>东屏避灾安置中心</b>
+<small>容量600 · 当前248 · 剩余352</small>
+<div class="shelter-cap">
+<i style="width:41%">
+</i>
+</div>
+<span class="tag g">容量正常</span>
+</div>
+<span class="arrow"><i data-tabler=chevron-right></i></span>
+</div>
+<div class="row tap" data-shelter-page="shelter-people">
+<div class="avatar"><i data-tabler=building-community></i></div>
+<div class="info">
+<b>海悦酒店临时点</b>
+<small>容量180 · 当前141 · 剩余39</small>
+<div class="shelter-cap">
+<i class="warn" style="width:78%">
+</i>
+</div>
+<span class="tag o">注意容量</span>
+</div>
+<span class="arrow"><i data-tabler=chevron-right></i></span>
+</div>
+</div>
+<div class="card">
+<div class="ph">快捷办理</div>
+<div class="actions">
+<button class="btn primary" data-shelter-page="shelter-checkin">扫码核验登记</button>
+<button class="btn" data-shelter-page="shelter-transfer">人员转点</button>
+<button class="btn" data-shelter-page="shelter-people">在住名单</button>
+<button class="btn" data-action="manual-shelter">人工登记</button>
+</div>
+</div>
+</section>
+<section class="view" id="shelter-people">
+<div class="head">
+<div>
+<h1>安置点在住人员</h1>
+<div class="sub">东屏避灾安置中心</div>
+</div>
+<button class="btn" data-shelter-page="shelter">返回</button>
+</div>
+<div class="shelter-summary">
+<div>
+<b>248</b>
+<small>当前在住</small>
+</div>
+<div>
+<b>221</b>
+<small>匹配任务</small>
+</div>
+<div>
+<b>18</b>
+<small>非目标</small>
+</div>
+<div>
+<b>9</b>
+<small>待核对</small>
+</div>
+</div>
+<div class="card">
+<div class="row tap" data-shelter-page="shelter-person">
+<div class="avatar">陈</div>
+<div class="info">
+<b>陈秀英</b>
+<small>扫码登记 · 无随行家属</small>
+<span class="tag g">匹配RW-018</span>
+<span class="tag g">自动到位</span>
+</div>
+<span class="arrow"><i data-tabler=chevron-right></i></span>
+</div>
+<div class="row tap" data-shelter-page="shelter-person">
+<div class="avatar">王</div>
+<div class="info">
+<b>王海一家4人</b>
+<small>工作人员登记 · 家属3人</small>
+<span class="tag o">非目标人员</span>
+<span class="tag o">待核对</span>
+</div>
+<span class="arrow"><i data-tabler=chevron-right></i></span>
+</div>
+<div class="row">
+<div class="avatar">李</div>
+<div class="info">
+<b>李阿宝一家3人</b>
+<small>群众扫码 · 家属2人</small>
+<span class="tag p">待复核</span>
+</div>
+<button class="btn" data-shelter-page="shelter-transfer">转点</button>
+</div>
+</div>
+<div class="actions">
+<button class="btn" data-shelter-page="shelter-checkin">扫码核验</button>
+<button class="btn primary" data-action="manual-shelter">人工登记</button>
+</div>
+</section>
+<section class="view" id="shelter-checkin">
+<div class="head">
+<div>
+<h1>扫码登记核验</h1>
+<div class="sub">核验群众登记码和转移任务</div>
+</div>
+<button class="btn" data-shelter-page="shelter">返回</button>
+</div>
+<div class="card">
+<div class="checkin-box" data-action="shelter-scan">
+<div>
+<b><i data-tabler=qrcode></i></b>点击扫描群众登记凭证</div>
+</div>
+<div class="actions">
+<button class="btn" data-action="manual-shelter">手工查询</button>
+<button class="btn primary" data-action="shelter-scan">开始扫码</button>
+</div>
+</div>
+<div class="card">
+<div class="ph">待核对登记<small>3条</small>
+</div>
+<div class="row tap" data-shelter-page="shelter-person">
+<div class="avatar">王</div>
+<div class="info">
+<b>王海一家4人</b>
+<small>未匹配转移任务</small>
+<span class="tag o">非目标人员</span>
+</div>
+<span class="arrow"><i data-tabler=chevron-right></i></span>
+</div>
+<div class="row tap" data-shelter-page="shelter-person">
+<div class="avatar">赵</div>
+<div class="info">
+<b>赵强</b>
+<small>证件号存在重复登记</small>
+<span class="tag r">重复待确认</span>
+</div>
+<span class="arrow"><i data-tabler=chevron-right></i></span>
+</div>
+</div>
+</section>
+<section class="view" id="shelter-person">
+<div class="head">
+<div>
+<h1>安置登记详情</h1>
+<div class="sub">身份、家属、任务匹配和安置记录</div>
+</div>
+<button class="btn" data-shelter-page="shelter-people">返回</button>
+</div>
+<div class="card">
+<div class="row">
+<div class="avatar face">陈</div>
+<div class="info">
+<b>陈秀英</b>
+<small>330322********4628 · 138****5621</small>
+<span class="tag g">身份已核验</span>
+<span class="tag b">无随行家属</span>
+</div>
+</div>
+<div class="notice green">匹配转移任务RW-018。登记时间和位置符合任务要求。</div>
+</div>
+<div class="card">
+<div class="status-line">
+<span class="status-node done">扫码登记<i data-tabler=chevron-right></i></span>
+<span class="status-node done">身份去重<i data-tabler=chevron-right></i></span>
+<span class="status-node done">任务匹配<i data-tabler=chevron-right></i></span>
+<span class="status-node now">安置确认<i data-tabler=chevron-right></i></span>
+</div>
+<div class="field">
+<label>当前安置点</label>
+<input value="东屏避灾安置中心 A区012床">
+</div>
+<div class="field">
+<label>特殊需求</label>
+<input value="行动不便，需低楼层床位">
+</div>
+<div class="field">
+<label>核验备注</label>
+<textarea>本人已到达，身份与转移任务一致。</textarea>
+</div>
+<div class="actions">
+<button class="btn" data-shelter-page="shelter-transfer">转移安置点</button>
+<button class="btn primary" data-action="shelter-confirm">确认到位</button>
+</div>
+</div>
+</section>
+<section class="view" id="shelter-transfer">
+<div class="head">
+<div>
+<h1>人员转点</h1>
+<div class="sub">原点签出、目标点接收、任务回写</div>
+</div>
+<button class="btn" data-shelter-page="shelter">返回</button>
+</div>
+<div class="card">
+<div class="status-line">
+<span class="status-node done">原点签出<i data-tabler=chevron-right></i></span>
+<span class="status-node now">执行转移<i data-tabler=chevron-right></i></span>
+<span class="status-node">目标接收<i data-tabler=chevron-right></i></span>
+<span class="status-node">统计回写<i data-tabler=chevron-right></i></span>
+</div>
+<div class="field">
+<label>转移人员</label>
+<input value="李阿宝及随行家属2人">
+</div>
+<div class="field">
+<label>当前安置点</label>
+<input value="东屏避灾安置中心">
+</div>
+<div class="field">
+<label>目标安置点</label>
+<select>
+<option>海悦酒店临时点（余39）</option>
+<option>元觉文化礼堂（余204）</option>
+<option>海岛时光民宿（余32）</option>
+</select>
+</div>
+<div class="field">
+<label>转点原因</label>
+<select>
+<option>登记错误</option>
+<option>容量分流</option>
+<option>家属团聚</option>
+<option>医疗/无障碍需求</option>
+</select>
+</div>
+<div class="field">
+<label>备注</label>
+<textarea>本人及家属整体转点，目标点已确认。</textarea>
+</div>
+<div class="actions">
+<button class="btn" data-action="shelter-transfer-draft">保存待执行</button>
+<button class="btn primary" data-action="shelter-transfer-submit">确认转点</button>
+</div>
+</div>
+</section>
+<section class="view" id="shelter-register">
+<div class="head">
+<div>
+<h1>人工登记</h1>
+<div class="sub">本人、随行家属与转移任务核验</div>
+</div>
+<button class="btn" data-shelter-page="shelter">返回</button>
+</div>
+<div class="card">
+<div class="ph">本人身份</div>
+<div class="field">
+<div class="form-grid">
+<label>姓名<input value="王海">
+</label>
+<label>手机号<input value="139****6088">
+</label>
+<label class="wide">身份证号<input value="330322********2831">
+</label>
+<label>登记方式<select>
+<option>工作人员代登记</option>
+<option>本人现场登记</option>
+</select>
+</label>
+<label>身份核验<select>
+<option>证件与本人一致</option>
+<option>待进一步核验</option>
+</select>
+</label>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="ph">随行家属<small>3人</small>
+</div>
+<div class="row">
+<div class="avatar">妻</div>
+<div class="info">
+<b>林芳</b>
+<small>330322********2862 · 配偶</small>
+<span class="tag g">身份已核验</span>
+</div>
+<button class="btn" data-action="shelter-family-edit">核对</button>
+</div>
+<div class="row">
+<div class="avatar">子</div>
+<div class="info">
+<b>王小宇</b>
+<small>330322********5617 · 子女</small>
+<span class="tag g">身份已核验</span>
+</div>
+<button class="btn" data-action="shelter-family-edit">核对</button>
+</div>
+<div class="row">
+<div class="avatar">女</div>
+<div class="info">
+<b>王小雨</b>
+<small>330322********4822 · 子女</small>
+<span class="tag o">待核验</span>
+</div>
+<button class="btn" data-action="shelter-family-edit">核对</button>
+</div>
+<div class="actions">
+<button class="btn block" data-action="shelter-family-add"><i data-tabler=plus></i>添加随行家属</button>
+</div>
+</div>
+<div class="card">
+<div class="ph">安置与任务匹配</div>
+<div class="field">
+<div class="form-grid">
+<label class="wide">当前安置点<select>
+<option>东屏避灾安置中心（余352）</option>
+<option>海悦酒店临时点（余39）</option>
+</select>
+</label>
+<label>入住分区<select>
+<option>A区家庭安置</option>
+<option>B区普通安置</option>
+</select>
+</label>
+<label>床位/房间<input value="A-026至A-029">
+</label>
+<label class="wide">转移任务匹配<input value="未命中转移任务">
+</label>
+<label class="wide">未匹配原因<select>
+<option>非转移目标，自主避险</option>
+<option>姓名或证件信息不一致</option>
+<option>跨区域转移</option>
+<option>任务尚未同步</option>
+</select>
+</label>
+</div>
+</div>
+<div class="field">
+<label>特殊需求 <button class="voice" data-action="voice"><i data-tabler=microphone></i> 语音填写</button>
+</label>
+<textarea>携带2名儿童，需要家庭安置区。</textarea>
+</div>
+<div class="evidence">
+<button class="photo" data-action="camera"><i data-tabler=plus></i>本人证件</button>
+<button class="photo" data-action="camera"><i data-tabler=plus></i>现场合照</button>
+</div>
+<div class="actions">
+<button class="btn" data-action="shelter-save-draft">保存草稿</button>
+<button class="btn primary" data-action="shelter-register-submit">核验并登记</button>
+</div>
+</div>
+</section>
+<section class="view" id="shelter-scan-result">
+<div class="head">
+<div>
+<h1>登记凭证核验</h1>
+<div class="sub">身份去重、任务匹配与安置确认</div>
+</div>
+<button class="btn" data-shelter-page="shelter-checkin">返回</button>
+</div>
+<div class="card">
+<div class="status-line">
+<span class="status-node done">凭证读取<i data-tabler=chevron-right></i></span>
+<span class="status-node done">身份去重<i data-tabler=chevron-right></i></span>
+<span class="status-node now">任务匹配<i data-tabler=chevron-right></i></span>
+<span class="status-node">安置确认<i data-tabler=chevron-right></i></span>
+</div>
+<div class="row">
+<div class="avatar face">王</div>
+<div class="info">
+<b>王海一家4人</b>
+<small>本人<i data-tabler=plus></i>配偶<i data-tabler=plus></i>子女2人</small>
+<span class="tag g">身份信息完整</span>
+<span class="tag o">未匹配转移任务</span>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="ph">核验结果</div>
+<div class="field">
+<div class="form-grid">
+<label>重复登记<select>
+<option>未发现重复</option>
+<option>疑似重复</option>
+</select>
+</label>
+<label>任务匹配<select>
+<option>未匹配</option>
+<option>手工关联任务</option>
+</select>
+</label>
+<label class="wide">处理结果<select>
+<option>作为非目标人员接收</option>
+<option>关联现有转移任务</option>
+<option>转至其他安置点</option>
+<option>暂不接收</option>
+</select>
+</label>
+<label class="wide">安置位置<input value="东屏避灾安置中心 A区026-029床">
+</label>
+</div>
+</div>
+<div class="field">
+<label>核验备注 <button class="voice" data-action="voice"><i data-tabler=microphone></i> 语音填写</button>
+</label>
+<textarea>自主到点避险，身份信息一致，当前容量充足，同意接收。</textarea>
+</div>
+<div class="actions">
+<button class="btn" data-shelter-page="shelter-transfer">转至其他点</button>
+<button class="btn primary" data-action="shelter-scan-confirm">确认接收</button>
+</div>
+</div>
+</section>
+<section class="view" id="shelter-transfer-receive">
+<div class="head">
+<div>
+<h1>转点接收</h1>
+<div class="sub">目标点核验人员并完成交接</div>
+</div>
+<button class="btn" data-shelter-page="shelter">返回</button>
+</div>
+<div class="card">
+<div class="status-line">
+<span class="status-node done">原点签出<i data-tabler=chevron-right></i></span>
+<span class="status-node done">执行转移<i data-tabler=chevron-right></i></span>
+<span class="status-node now">目标接收<i data-tabler=chevron-right></i></span>
+<span class="status-node">任务回写<i data-tabler=chevron-right></i></span>
+</div>
+<div class="row">
+<div class="avatar">李</div>
+<div class="info">
+<b>李阿宝一家3人</b>
+<small>东屏避灾安置中心 → 海悦酒店临时点</small>
+<span class="tag o">待接收</span>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="ph">现场交接核验</div>
+<div class="field">
+<div class="form-grid">
+<label>到达人数<select>
+<option>3人，全部到达</option>
+<option>人数不一致</option>
+</select>
+</label>
+<label>身份核验<select>
+<option>全部一致</option>
+<option>存在异常</option>
+</select>
+</label>
+<label>房间安排<input value="305、306房">
+</label>
+<label>特殊需求<input value="行动不便">
+</label>
+</div>
+</div>
+<div class="evidence">
+<button class="photo" data-action="camera"><i data-tabler=plus></i>到达合照</button>
+<button class="photo" data-action="camera"><i data-tabler=plus></i>交接凭证</button>
+</div>
+<div class="field">
+<label>交接记录 <button class="voice" data-action="voice"><i data-tabler=microphone></i> 语音填写</button>
+</label>
+<textarea>人员全部到达，身份一致，已安排入住。</textarea>
+</div>
+<div class="actions">
+<button class="btn" data-action="shelter-receive-abnormal">交接异常</button>
+<button class="btn primary" data-action="shelter-receive-confirm">确认接收</button>
+</div>
+</div>
+</section>
+<nav class="bottom hidden" id="deptNav">
+<button class="nav active" data-tab="dept">
+<b><i data-tabler=layout-dashboard></i></b>部门工作台</button>
+<button class="nav" data-tab="dept-transfer">
+<b><i data-tabler=list></i></b>任务</button>
+<button class="nav" data-tab="dept-form">
+<b><i data-tabler=map-pin></i></b>点位</button>
+<button class="nav" data-tab="risk-release">
+<b><i data-tabler=check></i></b>恢复</button>
+<button class="nav" data-shelter-page="shelter">
+<b><i data-tabler=home></i></b>安置</button>
+<button class="nav" data-tab="me">
+<b><i data-tabler=user></i></b>我的</button>
+</nav>
+<div class="toast" id="toast">
+</div>
+<div class="modal" id="modal">
+<div class="sheet">
+<button class="close" id="close" aria-label="关闭"><i data-tabler=x></i></button>
+<h3 id="mt">操作提示</h3>
+<p id="mx">
+</p>
+<button class="btn primary block" id="ok">完成</button>
+</div>
+</div>
+</main>

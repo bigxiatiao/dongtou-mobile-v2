@@ -1,0 +1,17 @@
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { flushSync } from 'react-dom';
+import { loadStyles } from './styles';
+import { installViewBridge } from './components/TemplateView';
+import { bootstrapBusiness } from './legacy/bootstrap';
+
+await loadStyles();
+await import('./icon-system.css');
+await import('./standard-controls.css');
+document.body.dataset.role = 'grid';
+// Theme reads the loaded local palette. No duplicated initialization in effects.
+const { default: App } = await import('./App');
+const root = createRoot(document.getElementById('root'));
+flushSync(() => root.render(<App />));
+installViewBridge();
+await bootstrapBusiness();

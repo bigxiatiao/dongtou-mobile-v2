@@ -1,0 +1,36 @@
+/* Shared React / preserved Ionic icon contract. Load after role styles. */
+html body #app .app-icon,
+html body .dp-overlay .app-icon,
+html body .transfer-overlay .app-icon,
+html body .gs-sheet .app-icon {
+  width:20px;
+  height:20px;
+  flex:0 0 20px;
+  display:inline-block;
+  vertical-align:middle;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.5;
+  pointer-events:none;
+}
+.app-icon { width:20px; height:20px; flex-shrink:0; vertical-align:middle; pointer-events:none; }
+html body #transfer-list .transfer-chevron {
+  display:inline-flex; width:20px; height:20px; flex-basis:20px;
+  border:0; transform:none; align-items:center; justify-content:center;
+}
+html body #transfer-list .transfer-chevron.expanded { transform:rotate(90deg); }
+.transfer-check-hit input + span > .app-icon { visibility:hidden; }
+.transfer-check-hit input:checked + span > .app-icon { visibility:visible; color:var(--surface); }
+.transfer-form-extra summary { list-style:none; }
+.transfer-form-extra summary::-webkit-details-marker { display:none; }
+.transfer-form-extra summary > .app-icon { margin-left:auto; }
+.transfer-form-extra[open] summary > .app-icon { transform:rotate(180deg); }
+.status-node { display:inline-flex; align-items:center; gap:5px; }
+.status-node:last-child > .app-icon { display:none; }
+html body #app .home-shortcut-arrow { display:inline-flex; flex:0 0 20px; }
+.weather-warning { display:flex; flex-direction:row; align-items:center; gap:6px; width:110px; flex:0 0 110px; color:var(--blue-11,#0078d4); font-size:12px; line-height:1.4; text-align:left; }
+.weather-warning.yellow { color:var(--amber-11,#946800); }
+.weather-warning.orange { color:var(--orange-11,#bd4b00); }
+.weather-warning.red { color:var(--red-11,#ce2c31); }
+.weather-warning > span { white-space:nowrap; }
+html body #app .home-map-marker > span { display:grid; place-items:center; }
