@@ -29,10 +29,10 @@ function renderTransferText(element, value) {
   const pickerField = (key, label, items, value = '', required = false) => {
     const normalized = items.map(item => typeof item === 'string' ? { value: item, label: item } : item);
     const found = normalized.find(item => item.value === value);
-    return `<label class="transfer-field"><span>${label} ${required ? '<em>必填</em>' : '<small>选填</small>'}</span><input type="hidden" data-form="${key}" value="${esc(value)}"><button type="button" class="transfer-picker-trigger" data-transfer-picker="${key}" data-picker-label="${esc(label)}" data-picker-options="${esc(JSON.stringify(normalized))}" aria-label="选择${label}"><span>${esc(found?.label || value || '请选择')}</span><b><i data-tabler=chevron-down></i></b></button></label>`;
+    return `<label class="transfer-field"><span>${label} ${required ? '<em class="required-mark">*</em>' : ''}</span><input type="hidden" data-form="${key}" value="${esc(value)}"><button type="button" class="transfer-picker-trigger" data-transfer-picker="${key}" data-picker-label="${esc(label)}" data-picker-options="${esc(JSON.stringify(normalized))}" aria-label="选择${label}" ${required ? 'aria-required="true"' : ''}><span>${esc(found?.label || value || '请选择')}</span><b><i data-tabler=chevron-down></i></b></button></label>`;
   };
   const select = (key, label, values, value = '', required = false) => pickerField(key, label, values, value, required);
-  const input = (key, label, value = '', placeholder = '选填', required = false) => `<label class="transfer-field"><span>${label} ${required ? '<em>必填</em>' : '<small>选填</small>'}</span><input data-form="${key}" value="${esc(value)}" placeholder="${esc(placeholder)}" ${key === 'phone' ? 'inputmode="tel"' : ''} ${required ? 'aria-required="true"' : ''}></label>`;
+  const input = (key, label, value = '', placeholder = '请输入', required = false) => `<label class="transfer-field"><span>${label} ${required ? '<em class="required-mark">*</em>' : ''}</span><input data-form="${key}" value="${esc(value)}" placeholder="${esc(placeholder)}" ${key === 'phone' ? 'inputmode="tel"' : ''} ${required ? 'aria-required="true"' : ''}></label>`;
   const readout = (label, value) => `<div class="transfer-readout"><small>${label}</small><b>${esc(value || '选择安置点后带出')}</b></div>`;
   const mask = v => String(v || '').replace(/(1\d{2})\d{4}(\d{4})/g, '$1****$2');
 
@@ -41,7 +41,7 @@ function renderTransferText(element, value) {
     const totalMembers = tree.reduce((n, d) => n + d.memberCount, 0);
     renderTransferText($('#transferListSummary'), `${data.action.name} · ${tree.length}处门址 · ${totalMembers}人`);
     renderTransferText($('#home .metric[data-workbench="transfer-list"] strong'), people.length);
-    renderTransferText($('#homeTransferStatus'), `待转移${counts['待转移']} · 待复核${counts['待复核']} · 异常${counts['异常跟进']}`);
+    renderTransferText($('#homeTransferStatus'), `待转移${counts['待转移']}\n待复核${counts['待复核']}\n异常${counts['异常跟进']}`);
     $$('.transfer-tabs button').forEach(button => {
       const status = button.dataset.status;
       renderTransferText(button, `${status === 'all' ? '全部' : status} ${status === 'all' ? people.length : counts[status]}`);
@@ -139,7 +139,7 @@ function renderTransferText(element, value) {
       <div class="transfer-person-heading"><div><h2>${esc(person.name)}</h2><small>${esc(person.address)}</small></div>${badge(person.status)}</div>
       <div class="transfer-key-info">
         <span>${esc(mask(person.phone))}</span>
-        <a class="transfer-call" href="tel:${esc(person.phone)}">联系</a>
+        <a class="transfer-call" href="tel:${esc(person.phone)}"><i data-tabler=phone></i>联系</a>
         <span>${esc(room?.unit || '')} ${esc(room?.name || '')}</span>
         <span>办理人：${esc(person.executor)}</span>
       </div>
@@ -229,7 +229,7 @@ function renderTransferText(element, value) {
   function addressField(destination = {}) {
     const locationData = destination.location ? ` data-location="${esc(JSON.stringify(destination.location))}"` : '';
     return `<div class="transfer-address-field">
-      <label class="transfer-field"><span>详细地址 <small>选填</small></span><input data-form="address" value="${esc(destination.address || '')}" placeholder="输入详细地址或点击地图选址"${locationData}></label>
+      <label class="transfer-field"><span>详细地址 </span><input data-form="address" value="${esc(destination.address || '')}" placeholder="输入详细地址或点击地图选址"${locationData}></label>
       <button type="button" class="transfer-location-btn" data-transfer-address><i data-tabler=map-pin></i> 地图选址</button>
     </div>`;
   }
@@ -244,7 +244,7 @@ function renderTransferText(element, value) {
       const extra = extraFields(destination);
       body = common;
       if (extra && showOptional) {
-        body += `<details class="transfer-form-extra" id="optionalFields"><summary>展示更多（选填）<i data-tabler=chevron-down></i></summary><div class="form-grid">${extra}</div></details>`;
+        body += `<details class="transfer-form-extra" id="optionalFields"><summary>展示更多<i data-tabler=chevron-down></i></summary><div class="form-grid">${extra}</div></details>`;
       } else if (extra) {
         body += `<div class="form-grid">${extra}</div>`;
       }
@@ -281,7 +281,7 @@ function renderTransferText(element, value) {
 
   function evidence(stage, person) {
     const count = (person.transfer.photos || []).filter(p => p.stage === stage).length;
-    return `<div class="transfer-evidence"><button class="photo" data-transfer-photo="${stage}">${count ? '<i data-tabler=check></i> 已采集 ' + count + '张 · 继续补拍' : '<i data-tabler=plus></i>现场照片（选填）'}</button><small>现场凭证，供人工对照</small></div>`;
+    return `<div class="transfer-evidence"><button class="photo" data-transfer-photo="${stage}">${count ? '<i data-tabler=check></i> 已采集 ' + count + '张 · 继续补拍' : '<i data-tabler=plus></i>现场照片'}</button><small>现场凭证，供人工对照</small></div>`;
   }
 
   function renderPerson(view) {
@@ -305,7 +305,7 @@ function renderTransferText(element, value) {
           <div class="ph">补充安置信息<small>不改变当前任务状态</small></div>
           <div class="field">
             <div class="form-grid">${placementSection(dest, true)}</div>
-            <label>办理说明（选填）<textarea data-form="transferNote" placeholder="补充说明">${esc(saved.note || '')}</textarea></label>
+            <label>办理说明<textarea data-form="transferNote" placeholder="补充说明">${esc(saved.note || '')}</textarea></label>
             ${evidence('补充', person)}
           </div>
           <div class="actions transfer-sticky-actions">
@@ -342,7 +342,7 @@ function renderTransferText(element, value) {
             <div class="form-grid" id="placementFields">
               ${placementSection(plannedDest, true)}
             </div>
-            <label>办理说明（选填）<textarea data-form="transferNote" placeholder="同行人员、药品、身体状况或异常情况">${esc(saved.note || '')}</textarea></label>
+            <label>办理说明<textarea data-form="transferNote" placeholder="同行人员、药品、身体状况或异常情况">${esc(saved.note || '')}</textarea></label>
             ${evidence('转移', person)}
           </div>
           <div class="actions transfer-sticky-actions">
@@ -361,7 +361,7 @@ function renderTransferText(element, value) {
             <div class="form-grid" id="placementFields">
               ${placementSection(dest, true)}
             </div>
-            <label>办理说明（选填）<textarea data-form="transferNote" placeholder="同行人员、药品、身体状况或异常情况">${esc(saved.note || '')}</textarea></label>
+            <label>办理说明<textarea data-form="transferNote" placeholder="同行人员、药品、身体状况或异常情况">${esc(saved.note || '')}</textarea></label>
             ${evidence('转移', person)}
           </div>
           <div class="actions transfer-sticky-actions">
@@ -378,7 +378,7 @@ function renderTransferText(element, value) {
           <div class="form-grid">
             ${select('result', '复核结果', ['通过','退回补正','异常确认'], draft.result || '通过', true)}
           </div>
-          <details class="transfer-form-extra"><summary>补充说明与联系方式（选填）<i data-tabler=chevron-down></i></summary>
+          <details class="transfer-form-extra"><summary>补充说明与联系方式<i data-tabler=chevron-down></i></summary>
             ${input('contact', '接收人 / 联系方式', draft.contact)}
             <label>复核说明<textarea data-form="note">${esc(draft.note || '')}</textarea></label>
           </details>
@@ -402,7 +402,7 @@ function renderTransferText(element, value) {
           <div class="form-grid">
             ${select('confirmation', '到家确认', ['现场确认','家属视频确认','电话回访'], conditions.confirmation, true)}
           </div>
-          <details class="transfer-form-extra"><summary>展示更多（选填）<i data-tabler=chevron-down></i></summary>
+          <details class="transfer-form-extra"><summary>展示更多<i data-tabler=chevron-down></i></summary>
             <div class="form-grid">
               ${select('house', '房屋安全', ['安全可入住','需继续观察','不可入住'], conditions.house)}
               ${select('road', '道路通行', ['正常','受限','中断'], conditions.road)}
@@ -411,7 +411,7 @@ function renderTransferText(element, value) {
               ${select('method', '返家方式', ['网格员陪同','家属接回','集中送返','自行返家'], conditions.method)}
             </div>
           </details>
-          <label>执行说明（选填）<textarea data-form="note">${esc(saved.note || '')}</textarea></label>
+          <label>执行说明<textarea data-form="note">${esc(saved.note || '')}</textarea></label>
           ${evidence('返家', person)}
         </div>
         ${done ? '<div class="notice green">已确认返家到位</div>' : '<div class="actions transfer-sticky-actions"><button class="btn" data-transfer-supplement-entry>补充安置信息</button><button class="btn" data-transfer-restore="abnormal">记录返家异常</button><button class="btn primary" data-transfer-restore="finish">确认返家到位</button></div>'}
@@ -455,7 +455,7 @@ function renderTransferText(element, value) {
           <div class="form-grid">
             ${placementSection(commonDest, true)}
           </div>
-          <label>办理说明（选填）<textarea data-form="transferNote" placeholder="同行人员、药品等情况">${esc(batchCommon.note || '')}</textarea></label>
+          <label>办理说明<textarea data-form="transferNote" placeholder="同行人员、药品等情况">${esc(batchCommon.note || '')}</textarea></label>
           <button class="btn primary" data-batch-apply>应用到所选${selected.size}人</button>
         </div>
       </details>
@@ -471,7 +471,7 @@ function renderTransferText(element, value) {
             <div class="form-grid">
               ${placementSection(saved.destination || {}, true)}
             </div>
-            <label>办理说明（选填）<textarea data-form="transferNote">${esc(saved.note || '')}</textarea></label>
+            <label>办理说明<textarea data-form="transferNote">${esc(saved.note || '')}</textarea></label>
           </div>
         </details>`;
       }).join('')}</div>
@@ -510,7 +510,7 @@ function renderTransferText(element, value) {
       <div class="collection-sheet-panel">
         <div class="sheet-head"><b>转交办理</b><button class="close" data-transfer-close><i data-tabler=x></i></button></div>
         ${pickerField('executorId', '接替办理人', Object.values(data.executors).filter(e => e.id !== current.assignment.currentExecutor.id).map(e => ({ value: e.id, label: e.name })), '', true)}
-        <label>原因（选填）<input id="handoverReason" placeholder="如临时请假"></label>
+        <label>原因<input id="handoverReason" placeholder="如临时请假"></label>
         <div class="actions"><button class="btn" data-transfer-close>取消</button><button class="btn primary" data-transfer-confirm-handover>确认转交</button></div>
       </div>`);
     sheet.classList.remove('hidden');
@@ -519,9 +519,25 @@ function renderTransferText(element, value) {
   function showValidation(out, section) {
     toast(out.error);
     if (!section) return;
-    $$('.transfer-field.invalid', section).forEach(field => field.classList.remove('invalid'));
+    $$('.transfer-field.invalid', section).forEach(field => {
+      field.classList.remove('invalid');
+      field.querySelectorAll('[aria-invalid]').forEach(control => { control.removeAttribute('aria-invalid'); control.removeAttribute('aria-describedby'); });
+      field.querySelector('.transfer-field-error')?.remove();
+    });
+    let alert = section.querySelector('.transfer-validation');
+    if (!alert) { alert = document.createElement('div'); alert.className = 'transfer-validation'; alert.setAttribute('role', 'alert'); (section.querySelector('.transfer-processing') || section).prepend(alert); }
+    renderTransferText(alert, out.error);
     const first = out.missing?.[0];
-    (out.missing || []).forEach(field => section.querySelector(`[data-form="${field.key}"]`)?.closest('label')?.classList.add('invalid'));
+    (out.missing || []).forEach(field => {
+      const label = section.querySelector(`[data-form="${field.key}"]`)?.closest('label');
+      if (!label) return;
+      label.classList.add('invalid');
+      const error = document.createElement('span'); error.className = 'transfer-field-error';
+      error.id = 'transfer-error-' + field.key.replace(/[^a-z0-9_-]/gi, '-');
+      label.append(error); renderTransferText(error, '请填写' + field.label);
+      const control = label.querySelector('button,input:not([type="hidden"]),textarea,select');
+      control?.setAttribute('aria-invalid', 'true'); control?.setAttribute('aria-describedby', error.id);
+    });
     if (first) {
       const field = section.querySelector(`[data-form="${first.key}"]`);
       field?.closest('details')?.setAttribute('open', '');
@@ -554,7 +570,7 @@ function renderTransferText(element, value) {
     const root = button.closest('#transferHandover') || contextFor(button), key = button.dataset.transferPicker;
     picker = { button, root, key, options: JSON.parse(button.dataset.pickerOptions) };
     const value = root.querySelector(`[data-form="${key}"]`)?.value;
-    sheet('transferOptionSheet', button.dataset.pickerLabel, `<div class="transfer-sheet-options">${picker.options.map((item, index) => `<button type="button" data-transfer-option="${index}" class="${value === item.value ? 'selected' : ''}"><span><b>${esc(item.label)}</b>${item.detail ? `<small>${esc(item.detail)}</small>` : ''}</span><i>${value === item.value ? '<i data-tabler=check></i>' : '<i data-tabler=circle></i>'}</i></button>`).join('')}</div>`);
+    sheet('transferOptionSheet', button.dataset.pickerLabel, `<div class="transfer-sheet-options">${picker.options.map((item, index) => `<button type="button" data-transfer-option="${index}" class="transfer-option ${value === item.value ? 'selected' : ''}"><span><b>${esc(item.label)}</b>${item.detail ? `<small>${esc(item.detail)}</small>` : ''}</span><i>${value === item.value ? '<i data-tabler=check></i>' : '<i data-tabler=circle></i>'}</i></button>`).join('')}</div>`);
   }
 
   function setFormValue(root, key, value) {

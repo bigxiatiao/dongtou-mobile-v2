@@ -30,7 +30,7 @@ export function ChoiceControl({ props, children, elementRef, segmented }) {
   return <div {...props} role={props.role === 'tablist' ? 'group' : props.role} ref={elementRef} data-standard-choice={segmented ? 'segmented' : 'tabs'}>
     <div ref={source} hidden>{children}</div>
     {segmented
-      ? <Segmented aria-label={props['aria-label'] || '切换视图'} block options={choices.map(item => ({ ...item, value: item.key }))} value={value} onChange={choose} />
+      ? <Segmented classNames={{ root: 'standard-segmented', label: 'standard-segment-label' }} aria-label={props['aria-label'] || '切换视图'} block options={choices.map(item => ({ ...item, value: item.key }))} value={value} onChange={choose} />
       : <Tabs activeKey={value} items={choices} onChange={choose} tabBarGutter={24} />}
   </div>;
 }
@@ -68,6 +68,19 @@ export function SelectControl({ props, children, elementRef }) {
   const source = useRef(null);
   const [value, setValue] = useState(props.defaultValue);
   const [label, setLabel] = useState(props['aria-label']);
+  const [validation, setValidation] = useState({ invalid: props['aria-invalid'], describedBy: props['aria-describedby'] });
+  useEffect(() => {
+    // Controllers validate the preserved native field; reflect that feedback on
+    // the visible Select and its accessible input without duplicating values.
+    const read = () => {
+      const next = { invalid: source.current.getAttribute('aria-invalid'), describedBy: source.current.getAttribute('aria-describedby') };
+      setValidation(previous => previous.invalid === next.invalid && previous.describedBy === next.describedBy ? previous : next);
+    };
+    read();
+    const observer = new MutationObserver(read);
+    observer.observe(source.current, { attributes: true, attributeFilter: ['aria-invalid', 'aria-describedby'] });
+    return () => observer.disconnect();
+  }, []);
   useEffect(() => {
     const fieldLabel = source.current.labels?.[0];
     const text = fieldLabel && [...fieldLabel.childNodes]
@@ -81,7 +94,8 @@ export function SelectControl({ props, children, elementRef }) {
   }));
   return <span className="standard-select">
     <select {...props} hidden ref={node => { source.current = node; elementRef(node); }}>{children}</select>
-    <Select aria-label={label} style={{ width: '100%' }} value={value} options={options}
+    <Select aria-label={label} aria-required={props['aria-required']} aria-invalid={validation.invalid} aria-describedby={validation.describedBy}
+      status={validation.invalid === 'true' ? 'error' : undefined} style={{ width: '100%' }} value={value} options={options}
       disabled={props.disabled} suffixIcon={<AppIcon name="chevron-down" />}
       onChange={next => { setValue(next); source.current.value = next; source.current.dispatchEvent(new Event('change', { bubbles: true })); }} />
   </span>;

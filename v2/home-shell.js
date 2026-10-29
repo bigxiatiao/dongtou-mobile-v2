@@ -23,9 +23,16 @@ function renderHomeShellText(element, value) {
     const warnings = data.getActiveWarnings();
     const escape = value => String(value).replace(/[&"<>]/g, char => ({'&':'&amp;','"':'&quot;','<':'&lt;','>':'&gt;'}[char]));
     renderHomeShellHTML(weather, warnings.length
-      ? warnings.map(warning => `<span class="weather-warning ${escape(warning.level)}" role="img" aria-label="${escape(warning.label)}"><i data-tabler=${{typhoon:"storm",rainstorm:"cloud-rain",gale:"wind"}[warning.kind]}></i><span>${escape(warning.label)}</span></span>`).join('')
+      ? warnings.map(warning => {
+        const asset = { 'typhoon-orange': 'warning-typhoon-orange', 'rainstorm-yellow': 'warning-rainstorm-yellow' }[`${warning.kind}-${warning.level}`];
+        return asset ? `<img src="/assets/figma-home/${asset}.png" alt="${escape(warning.label)}" width="58" height="50">` : `<span class="weather-warning ${escape(warning.level)}" role="img" aria-label="${escape(warning.label)}"><i data-tabler=${{typhoon:"storm",rainstorm:"cloud-rain",gale:"wind"}[warning.kind]}></i><span>${escape(warning.label)}</span></span>`; }).join('')
       : '<span class="home-weather-empty">暂无有效预警</span>');
   }
+  // Match native button activation for the existing delegated task-card actions.
+  document.getElementById('home')?.addEventListener('keydown', event => {
+    const card = event.target.closest('.metric[data-workbench]');
+    if (card && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); card.click(); }
+  });
   window.GridHomeShell = { render };
   render();
 })();

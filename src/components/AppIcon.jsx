@@ -7,6 +7,8 @@ import {
   IconList, IconMap, IconMapPin, IconMicrophone, IconMinus, IconPhone,
   IconPlayerStop, IconPlus, IconQrcode, IconSchool, IconSearch, IconSquare,
   IconTrash, IconUser, IconX, IconStorm, IconCloudRain, IconWind,
+  IconDeviceFloppy, IconEdit, IconUsers, IconUserShare, IconBuildingCog,
+  IconCircleCheck, IconRotateClockwise,
 } from '@tabler/icons-react';
 
 // Explicit imports keep the production bundle limited to the icons we use.
@@ -22,10 +24,13 @@ export const iconComponents = {
   list: IconList, map: IconMap, 'map-pin': IconMapPin, microphone: IconMicrophone,
   minus: IconMinus, phone: IconPhone, 'player-stop': IconPlayerStop, plus: IconPlus,
   qrcode: IconQrcode, school: IconSchool, search: IconSearch, square: IconSquare,
+  'device-floppy':IconDeviceFloppy, edit:IconEdit, users:IconUsers, 'user-share':IconUserShare,
+  'building-cog':IconBuildingCog,
+  'circle-check':IconCircleCheck, 'rotate-clockwise':IconRotateClockwise,
   trash: IconTrash, user: IconUser, x: IconX, storm: IconStorm, 'cloud-rain': IconCloudRain, wind: IconWind,
 };
 
-export function AppIcon({ name, size = 20, stroke = 1.5, label, className = '', ...props }) {
+export function AppIcon({ name, size = 20, stroke = 1.25, label, className = '', ...props }) {
   const Icon = iconComponents[name];
   if (!Icon) throw new Error(`Unknown Tabler icon: ${name}`);
   return <Icon {...props} size={size} stroke={stroke} color="currentColor"

@@ -1,0 +1,141 @@
+{
+  "fileKey": "3ybszrjcEF87fJxRljUc6n",
+  "frameId": "77:1404",
+  "exportedOn": "2026-10-28",
+  "assets": [
+    {
+      "file": "header-bay.png",
+      "nodeId": "I111:163;111:87",
+      "slot": "Header background"
+    },
+    {
+      "file": "platform-logo.png",
+      "nodeId": "I111:163;111:100",
+      "slot": "Header logo"
+    },
+    {
+      "file": "action-bg.png",
+      "nodeId": "124:3693",
+      "slot": "Action card background"
+    },
+    {
+      "file": "warning-typhoon-orange.png",
+      "nodeId": "77:1429",
+      "slot": "Active orange typhoon warning"
+    },
+    {
+      "file": "warning-rainstorm-yellow.png",
+      "nodeId": "77:1430",
+      "slot": "Active yellow rainstorm warning"
+    },
+    {
+      "file": "notice-main.png",
+      "nodeId": "124:3708",
+      "slot": "Notification illustration"
+    },
+    {
+      "file": "notice-wave.png",
+      "nodeId": "124:3709",
+      "slot": "Notification illustration, outer wave"
+    },
+    {
+      "file": "notice-wave-small.png",
+      "nodeId": "124:3710",
+      "slot": "Notification illustration, inner wave"
+    },
+    {
+      "file": "transfer-bg.png",
+      "nodeId": "77:1445",
+      "slot": "Transfer card background"
+    },
+    {
+      "file": "transfer-icon.png",
+      "nodeId": "124:3768",
+      "slot": "Transfer card illustration"
+    },
+    {
+      "file": "risk-bg.png",
+      "nodeId": "77:1449",
+      "slot": "Risk card background"
+    },
+    {
+      "file": "risk-icon.png",
+      "nodeId": "124:3787",
+      "slot": "Risk card illustration"
+    },
+    {
+      "file": "collection-bg.png",
+      "nodeId": "77:1453",
+      "slot": "Collection card background"
+    },
+    {
+      "file": "collection-icon.png",
+      "nodeId": "124:3789",
+      "slot": "Collection card illustration"
+    },
+    {
+      "file": "district-map.png",
+      "nodeId": "87:1333",
+      "slot": "Illustrative map background; live points overlay"
+    },
+    {
+      "file": "search-bg.png",
+      "nodeId": "124:3753",
+      "slot": "Search shortcut background"
+    },
+    {
+      "file": "search-icon.png",
+      "nodeId": "132:3822",
+      "slot": "Search shortcut illustration"
+    },
+    {
+      "file": "shelter-bg.png",
+      "nodeId": "124:3750",
+      "slot": "Shelter shortcut background"
+    },
+    {
+      "file": "shelter-icon.png",
+      "nodeId": "132:3827",
+      "slot": "Shelter shortcut illustration"
+    },
+    {
+      "file": "contact-bg.png",
+      "nodeId": "132:3856",
+      "slot": "Department emergency contact shortcut background"
+    },
+    {
+      "file": "contact-icon.png",
+      "nodeId": "132:3857",
+      "slot": "Department emergency contact illustration"
+    },
+    {
+      "file": "empty-search.png",
+      "nodeId": "111:108",
+      "slot": "Search empty-state illustration without text"
+    },
+    {
+      "file": "map-pin-red.png",
+      "nodeId": "138:4102",
+      "slot": "Department single-object red marker, includes numeral 1; clusters remain dynamic"
+    },
+    {
+      "file": "map-pin-green.svg",
+      "nodeId": "138:4120",
+      "slot": "Department single-object green marker background with a live count overlay"
+    }
+  ],
+  "frames": [
+    "77:1404",
+    "77:1503",
+    "77:1598",
+    "77:1820",
+    "78:1261",
+    "78:1356",
+    "78:1505",
+    "78:1615",
+    "79:1278",
+    "79:1317",
+    "79:1417",
+    "79:1560"
+  ]
+}

@@ -1,0 +1,343 @@
+/* Project-wide rendering contract. Source: design.md and the 12 Figma frames.
+   Business view classes are retained so the existing controllers keep ownership. */
+html body {font-family:var(--font-family);font-size:14px;color:var(--color-text-primary);background:#e8e8e8;-webkit-font-smoothing:antialiased}
+html body #app {background:var(--color-page);color:var(--color-text-primary);min-height:100dvh;box-shadow:none}
+html body #app :where(p,span,b,strong,small,em,label,h1,h2,h3,h4,button,input,textarea,select,summary,li,time,a) {line-height:normal;letter-spacing:0}
+html body #app :where(h1,h2,h3,p) {overflow-wrap:anywhere}
+html body #app :is(.view,.dp-view,.gs-view) {
+  position:relative;z-index:4;margin-top:-16px;
+  min-height:calc(100dvh - 117px);
+  padding:16px 16px calc(28px + env(safe-area-inset-bottom,0px));
+  border-top:1px solid white;border-radius:16px 16px 0 0;background:var(--color-page);
+}
+html body #app :is(h1,h2,h3) {margin-top:0;color:var(--color-text-primary);font-weight:600}
+html body #app h1 {font-size:20px}
+html body #app h2 {font-size:18px}
+html body #app h3 {font-size:16px}
+html body #app :is(.list-toolbar,.dp-title,.gs-title) {
+  display:flex;align-items:center;gap:8px;min-height:44px;margin:0 0 12px;padding:0;
+}
+html body #app :is(.list-toolbar,.dp-title,.gs-title) h1 {font-size:18px;min-width:0;flex:1;margin:0}
+html body #app :is(.list-toolbar,.dp-title,.gs-title) :is(.back,.dp-back,.gs-back) {
+  display:inline-flex;align-items:center;justify-content:center;
+  flex:0 0 44px;width:44px;min-width:44px;height:44px;min-height:44px;padding:0;
+  background:transparent;border:0;color:var(--color-text-secondary);border-radius:4px;
+}
+html body #app :is(.sub,.status-count,.detail-note,.dp-muted,.dp-help,.dp-count,.gs-result-count,.offline) {font-size:12px;color:var(--color-text-secondary)}
+html body #app :is(.sub,.dp-count) {margin:4px 0 12px}
+html body #app #transferListSummary {margin:0 0 12px!important}
+html body #app :is(.card,.dp-card,.gs-card,.notice-item,.detail-card,.gs-detail-info,.gs-detail-hero) {
+  background:var(--color-surface);border:0;border-radius:12px;box-shadow:none;
+  margin:0 0 12px;overflow-wrap:anywhere;
+}
+html body #app :is(.row,.field) {padding:12px 16px;border-color:var(--color-divider)}
+html body #app :is(.row,.dp-object-row,.gs-card) {min-height:56px}
+html body #app .row {gap:8px}
+html body #app .info {min-width:0}
+html body #app .info > b {font-size:16px;font-weight:600;color:var(--color-text-primary)}
+html body #app .info > small {margin-top:4px;font-size:12px;color:var(--color-text-secondary)}
+html body #app :is(.ph,.voice-title) {font-size:18px;font-weight:600;padding:16px 16px 12px;min-height:0;border:0;color:var(--color-text-primary)}
+html body #app .ph small {font-size:12px;font-weight:400;color:var(--color-text-secondary);margin-top:4px}
+html body #app :is(.avatar,.dp-row-icon,.dp-task-avatar) {background:var(--color-primary-soft);color:var(--color-primary-solid);border-radius:8px;flex-shrink:0}
+html body #app :is(.tag,.dp-badge,.gs-status,.type-pill) {
+  display:inline-flex;align-items:center;gap:4px;max-width:100%;
+  font-size:12px;font-weight:400;padding:4px 8px;border:0;border-radius:4px;
+  white-space:normal;overflow-wrap:anywhere;
+}
+html body #app :is(.tag.r,.dp-badge.red,.gs-status.closed,.gs-status.full) {background:#fff1f0;color:var(--color-danger-pressed)}
+html body #app :is(.tag.o,.dp-badge.orange) {background:#fffbe6;color:var(--color-warning-text)}
+html body #app :is(.tag.g,.dp-badge.green,.gs-status.open) {background:#f6ffed;color:var(--color-success-text)}
+html body #app :is(.tag.b,.type-pill) {background:var(--color-primary-soft);color:var(--color-primary-solid)}
+html body #app .tag.p {background:#f9f0ff;color:#531dab}
+/* Action buttons: 40px visual surface within a separate 44px flow box.
+   The transparent border occupies real space and never overlaps a neighbour. */
+html body #app :is(.design-button,.btn,.mini-btn,.dp-button,.voice,.dp-voice,.gs-soft-button,.gs-detail-actions>a,.gs-detail-actions>button) {
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:44px;height:auto;max-width:100%;padding:8px 12px;
+  border:2px solid transparent;border-inline-width:0;border-radius:4px;
+  background:var(--color-primary-soft);background-clip:padding-box;
+  color:var(--color-primary-solid);font-size:14px;font-weight:500;
+  text-decoration:none;box-shadow:none;white-space:normal;
+}
+html body #app .mini-btn {font-size:12px;padding:6px 8px;border-block-width:6px}
+html body #app :is(.btn.primary,.dp-button.primary,.design-button[data-kind="primary"],.gs-detail-actions>button:not(:disabled)) {background-color:var(--color-primary-solid);color:white;box-shadow:none}
+html body #app :is(.btn.danger,.dp-button.danger,.design-button[data-kind="danger"]) {background-color:var(--color-danger-solid);color:white}
+html body #app :is(.design-button,.btn,.dp-button,.mini-btn,.voice,.dp-voice):active:not(:disabled) {background-color:var(--color-primary-soft-pressed);color:var(--color-primary-solid)}
+html body #app :is(.btn.primary,.dp-button.primary,.design-button[data-kind="primary"]):active:not(:disabled) {background-color:var(--color-primary-pressed);color:white}
+html body #app :is(.btn.danger,.dp-button.danger,.design-button[data-kind="danger"]):active:not(:disabled) {background-color:var(--color-danger-pressed);color:white}
+html body #app :is(button,input,textarea,select):disabled,
+html body #app :is(.btn,.dp-button,.design-button)[disabled] {color:var(--color-text-disabled);background-color:var(--color-page);cursor:not-allowed;box-shadow:none}
+html body #app :is(.standard-icon-button,.dp-toolbar>button,.search-icon,.close,.gs-sheet-close) {
+  display:inline-flex;align-items:center;justify-content:center;
+  width:44px;min-width:44px;height:44px;min-height:44px;padding:0;flex:0 0 44px;
+}
+html body #app :is(button,a,input,textarea,select,summary,[tabindex]):focus-visible {outline:2px solid var(--color-primary-solid);outline-offset:2px}
+html body #app .design-button .app-icon {--icon-size:18px}
+html body #app .mini-btn .app-icon {--icon-size:16px}
+html body #app :is(.actions,.detail-actions,.dp-inline-actions,.gs-detail-actions) {display:flex;flex-wrap:wrap;gap:8px}
+html body #app :is(.actions,.detail-actions)>:is(button,a),
+html body #app .gs-detail-actions>* {flex:1 1 120px;min-width:0}
+/* Field layouts stay natural-height; long labels and values never share a fixed row. */
+html body #app :where(input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([role="combobox"]),textarea,select,.dp-picker,.transfer-picker-trigger) {
+  min-height:44px;max-width:100%;padding:10px 12px;border:.5px solid var(--color-border);
+  border-radius:8px;background:white;color:var(--color-text-primary);font-size:14px;
+}
+html body #app textarea {min-height:88px;resize:vertical;overflow-wrap:anywhere}
+html body #app input::placeholder,html body #app textarea::placeholder {color:var(--color-text-secondary);opacity:1}
+html body #app :is(.form-grid,.dp-form-fields,.dp-coordinate) {gap:16px}
+html body #app .form-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+html body #app :is(.form-grid label,.transfer-field,.dp-form-field) {min-width:0;display:flex;flex-direction:column;gap:8px;color:var(--color-text-primary);font-size:14px;margin:0}
+html body #app :is(.form-grid label,.transfer-field,.dp-form-field) > :is(input,select,textarea,button,.standard-select) {margin-top:0;width:100%;min-width:0}
+html body #app :is(.transfer-field,.dp-form-field)>span:first-child {font-size:14px;color:var(--color-text-primary)}
+html body #app .required-mark {color:var(--color-danger-solid);font-style:normal;font-size:14px;margin-left:2px}
+html body #app :is(.transfer-field,.dp-form-field) em {color:var(--color-danger-solid);font-style:normal;font-size:14px}
+html body #app :is(.dp-field-error,.transfer-field-error) {font-size:12px;color:var(--color-danger-pressed);margin-top:-4px;min-height:0}
+html body #app :is(.dp-field-error,.transfer-field-error):empty {display:none}
+html body #app :is(.dp-form-alert,.transfer-validation) {border:0;border-radius:8px;padding:12px;background:#fff1f0;color:var(--color-danger-pressed);font-size:14px;margin-bottom:12px}
+html body #app [aria-invalid="true"] {border-color:var(--color-danger-solid)}
+html body #app :is(.transfer-picker-trigger,.dp-picker) {display:flex;justify-content:space-between;align-items:center;gap:8px;text-align:left;font-weight:400}
+html body #app :is(.transfer-picker-trigger,.dp-picker)>span {min-width:0;flex:1}
+html body #app :is(.transfer-picker-trigger,.dp-picker) .app-icon {--icon-size:16px}
+/* Lists, grouped data, detail fields and histories share the same hierarchy. */
+html body #app :is(.dp-section-heading,.voice-title) {display:flex;align-items:center;justify-content:space-between;gap:8px}
+html body #app .dp-section-heading {margin:0 0 12px;padding:0}
+html body #app .dp-section-heading h2 {font-size:18px;margin:0}
+html body #app .dp-section-heading > span {font-size:12px;color:var(--color-text-secondary)}
+html body #app .dp-card {padding:16px}
+html body #app .dp-card > h2 {font-size:18px;margin:0 0 12px;padding:0}
+html body #app :is(.dp-rows,.dp-unit-card) {padding:0;overflow:hidden}
+html body #app .dp-object-row {padding:16px;gap:8px;border-color:var(--color-divider);color:var(--color-text-primary)}
+html body #app .dp-object-row>span:nth-child(2) {min-width:0;flex:1}
+html body #app .dp-object-row b {font-size:16px;font-weight:600}
+html body #app .dp-object-row :is(small,em) {font-size:12px;margin-top:4px;color:var(--color-text-secondary)}
+html body #app :is(.dp-readonly,.meta-field:not(label)) {display:grid;grid-template-columns:minmax(80px,.8fr) minmax(0,1.2fr);gap:8px;font-size:14px;padding:0;margin:0}
+html body #app .dp-readonly {margin-bottom:8px}
+html body #app .dp-readonly:last-child {margin-bottom:0}
+html body #app .dp-readonly > :is(span,b),html body #app .meta-field > :is(label,span) {min-width:0;overflow-wrap:anywhere;white-space:normal}
+html body #app .dp-readonly b {font-weight:400;color:var(--color-text-primary)}
+html body #app .dp-readonly>span,html body #app .meta-field>label {font-size:14px;color:var(--color-text-secondary)}
+html body #app .create-group {border:0;border-radius:12px;background:white;padding:16px;margin:0 0 12px}
+html body #app .create-group h3 {font-size:18px;margin:0 0 12px;padding:0}
+html body #app .meta-grid {display:flex;flex-direction:column;gap:8px;padding:0}
+html body #app .meta-grid.edit-mode {gap:16px}
+html body #app .meta-grid.edit-mode .meta-field {display:flex;flex-direction:column;gap:8px}
+html body #app .meta-grid.edit-mode .meta-field>span {font-size:14px;font-weight:400}
+html body #app .detail-card:has(>.create-group) {padding:0;background:transparent}
+html body #app .detail-hero {padding:16px;gap:12px}
+html body #app .detail-hero h2 {font-size:16px;margin:0}
+html body #app :is(.detail-hero,.dp-person-heading) .tag {flex-shrink:0}
+html body #app .dp-timeline {padding:0 0 0 4px}
+html body #app .dp-timeline article {padding:0 0 16px 16px;border-left:.5px solid var(--color-border)}
+html body #app .dp-timeline article:last-child {padding-bottom:0;border-left-color:transparent}
+html body #app .dp-timeline article::before {top:5px;left:-3px;width:6px;height:6px;background:var(--color-brand)}
+html body #app .dp-timeline :is(b,p) {font-size:14px;margin:4px 0 0;color:var(--color-text-primary)}
+html body #app .dp-time {font-size:12px;color:var(--color-text-secondary)}
+html body #app .transfer-history {padding:16px}
+html body #app .transfer-history summary {font-size:18px;font-weight:600;padding:0;min-height:44px;cursor:pointer}
+html body #app .transfer-history summary>span {font-size:14px;font-weight:500;color:var(--color-primary-solid)}
+html body #app .transfer-history ol {list-style:none;margin:12px 0 0;padding:0 0 0 4px}
+html body #app .transfer-history li {position:relative;border-left:.5px solid var(--color-border);padding:0 0 16px 16px;margin:0}
+html body #app .transfer-history li:last-child {padding-bottom:0;border-color:transparent}
+html body #app .transfer-history li::before {content:"";position:absolute;left:-3px;top:5px;width:6px;height:6px;border-radius:50%;background:var(--color-brand)}
+html body #app .transfer-history time {display:block;font-size:12px;color:var(--color-text-secondary)}
+html body #app .transfer-history :is(li b,li p) {display:block;margin:4px 0 0;font-size:14px;color:var(--color-text-primary)}
+html body #app :is(.collection-empty,.dp-empty,.gs-empty) {padding:32px 16px;color:var(--color-text-secondary);font-size:14px}
+html body #app :is(.collection-empty,.dp-empty) {text-align:center}
+html body #app #collectionSearchResults:has(.collection-empty)>.card {background:transparent}
+html body #app #collectionSearchResults .collection-empty::before {
+  content:"";display:block;width:min(280px,100%);height:248.655px;margin:0 auto 12px;
+  background:url('/assets/figma-home/empty-search.png') center / contain no-repeat;
+}
+/* Fixed bars reserve their real flow height, including safe area. */
+html body #app :is(.dp-bottom,.transfer-bottom-actions,.collection-bottom-actions) {gap:8px;border-top:.5px solid var(--color-divider);background:white;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));box-shadow:none}
+html body #app :is(.dp-view:has(.dp-bottom),#base-list,.view:has(.transfer-bottom-actions)) {padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}
+html body #app .dp-bottom {z-index:10}
+html body #app :is(.dp-sheet,.collection-sheet-panel,.transfer-sheet-panel,.transfer-overlay-panel,.home-map-sheet-body,.gs-sheet) {border-radius:16px 16px 0 0;background:white;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));max-height:85dvh;overflow:auto;box-shadow:var(--shadow-dialog)}
+html body #app :is(.dp-sheet-title,.sheet-head,.gs-sheet-title) {gap:8px;margin-bottom:12px}
+html body #app :is(.dp-sheet-title,.sheet-head,.gs-sheet-title) :is(h2,b) {font-size:18px;font-weight:600}
+html body #app :is(.dp-sheet-title,.sheet-head,.gs-sheet-title) button {width:44px;min-width:44px;height:44px;min-height:44px;padding:0}
+html body #app :is(.dp-option,.room-picker-option,.transfer-picker-option) {min-height:56px;padding:12px 0;border-color:var(--color-divider);gap:8px;font-size:14px}
+html body #app :is(.dialog) {border-radius:16px;background:white;box-shadow:var(--shadow-dialog)}
+/* Risk forms use a full width destructive action after the draft/submit pair. */
+html body #app #risk .head {margin:0 0 12px;min-height:44px;gap:8px}
+html body #app #risk .head h1 {font-size:18px}
+html body #app #risk .actions {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);padding:16px;gap:8px}
+html body #app #risk [data-action="apply-release"] {grid-column:1 / -1;background-color:var(--color-danger-solid);color:white}
+html body #app #risk .notice.warn {background:#fffbe6;color:var(--color-warning-text);padding:12px 16px;font-size:12px;border:0}
+html body #app #risk .score {margin:0 16px 12px;padding:12px;border:0;border-radius:8px;background:#fff1f0;color:var(--color-danger-pressed);font-size:12px}
+html body #app #risk .score strong {font-size:18px;color:var(--color-danger-pressed)}
+html body #app #risk .offline {padding:0 16px 16px}
+html body #app #risk .voice {font-size:12px;gap:4px;padding-inline:8px}
+html body #app #risk .voice .app-icon {--icon-size:16px}
+/* Keep address -> building -> room -> people readable on all five widths. */
+html body #app #transferRows {background:transparent;border:0;padding:0;overflow:visible}
+html body #app #transfer-list .transfer-group {padding:16px;border:0;border-radius:12px;margin-bottom:12px;background:white}
+html body #app #transfer-list .transfer-group>.transfer-group-title {padding:0;border:0;background:white;min-height:44px}
+html body #app #transfer-list .transfer-building-group {margin:12px 0 0 16px;padding:0;border:0}
+html body #app #transfer-list .transfer-building-group>.transfer-group-title {padding:0;min-height:44px}
+html body #app #transfer-list .transfer-room-group {margin:12px 0 0 16px;padding:0;border:0}
+html body #app #transfer-list .transfer-room-group>.transfer-group-title {background:var(--color-primary-soft);border:0;border-radius:6px;padding:0 8px;min-height:44px}
+html body #app #transfer-list .transfer-group-head {min-height:44px;padding:0;gap:8px}
+html body #app #transfer-list .transfer-group-label {font-size:16px;font-weight:600;white-space:normal;overflow-wrap:anywhere}
+html body #app #transfer-list .transfer-level-icon {background:transparent;color:var(--color-primary-solid);flex-basis:20px;width:20px}
+html body #app #transfer-list .transfer-group-count {font-size:12px;white-space:nowrap;color:var(--color-text-secondary)}
+html body #app #transfer-list .transfer-room-people {padding:0 0 0 16px;margin-top:12px}
+html body #app #transfer-list .transfer-member-row {padding:8px 0;min-height:56px;border:0;background:transparent;gap:8px}
+html body #app .transfer-member-row b {font-size:16px;font-weight:600}
+html body #app .transfer-member-row small {font-size:12px;color:var(--color-text-secondary);margin-top:4px}
+html body #app .transfer-member-row .transfer-member-name {min-width:0}
+html body #app :is(.transfer-form-extra,.dp-placement-extras) {margin-top:12px;border-color:var(--color-divider)}
+html body #app :is(.transfer-form-extra,.dp-placement-extras) summary {min-height:44px;font-size:14px;color:var(--color-primary-solid)}
+html body #app :is(.transfer-identity,.dp-task-hero) {padding:16px}
+html body #app :is(.transfer-identity,.dp-person-heading) :is(h2,h3) {font-size:16px}
+html body #app :is(.transfer-basis,.dp-basis) {padding:12px;border:0;background:#fff1f0;border-radius:8px;margin-top:12px}
+html body #app :is(.dp-task-hero>.dp-inline-actions,.dp-current-placement,.dp-correction) {padding:0;margin-top:12px}
+html body #app .gs-detail-hero {padding:20px;display:flex;flex-direction:column;gap:8px;text-align:center;align-items:center}
+html body #app .gs-detail-hero>.gs-building {display:none}
+html body #app .gs-detail-hero h2 {font-size:18px;margin:0}
+html body #app .gs-detail-capacity b {font-size:28px;font-weight:600;color:var(--color-text-primary)}
+html body #app .gs-detail-info {padding:16px}
+html body #app .gs-detail-info>div {display:flex;flex-direction:column;gap:8px;margin-bottom:16px;padding:0;border:0}
+html body #app .gs-detail-info>div:last-child {margin-bottom:0}
+html body #app .gs-detail-info :is(span,b) {font-size:14px;font-weight:400}
+html body #app .gs-detail-info span {color:var(--color-text-secondary)}
+html body #app .gs-detail-info b {color:var(--color-text-primary)}
+html body #app :is(.tabs,.dp-tabs,.search-targets,.collection-status-tabs,.detail-switch) {margin-bottom:16px}
+html body #app .dp-map {border:0;background:#e8e8ec url('/assets/figma-home/district-map.png') center / cover no-repeat}
+html body #app .dp-map :is(.dp-map-water,.dp-road) {display:none}
+html body #app .dp-map-caption {font-size:12px;color:var(--color-text-secondary);background:rgba(255,255,255,.95);padding:4px 8px;border-radius:4px}
+@media(max-width:360px) {
+  html body #app #transfer-list .transfer-building-group,html body #app #transfer-list .transfer-room-group {margin-left:8px}
+  html body #app #transfer-list .transfer-room-people {padding-left:8px}
+  html body #app #transfer-list .transfer-group {padding:12px}
+  html body #app #transfer-list .transfer-group-label {font-size:14px}
+  html body #app .dp-person-task {flex-wrap:wrap}
+  html body #app .dp-object-row {padding:12px;flex-wrap:wrap}
+  html body #app :is(.form-grid,.dp-coordinate) {column-gap:8px}
+}
+@media(prefers-reduced-motion:reduce) {html body #app * {animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+/* Department dashboard uses the same downloaded artwork as the Figma frame. */
+html body #app #dept.active {display:flex;flex-direction:column;gap:12px}
+html body #app #dept > * {margin:0}
+html body #app #dept .dp-task-cards {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+html body #app #dept .dp-dashboard-task {
+  display:flex;flex-direction:column;align-items:stretch;gap:8px;
+  min-width:0;min-height:122px;padding:12px;border:0;border-radius:12px;
+  text-align:left;background:white url('/assets/figma-home/transfer-bg.png') 51% 74% / 112.99% 190.88% no-repeat;color:var(--color-text-secondary);
+}
+html body #app #dept .dp-dashboard-task:nth-child(2) {background-image:url('/assets/figma-home/collection-bg.png');background-size:109.47% 165.97%;background-position:50% 85%}
+html body #app #dept .dp-dashboard-label {display:flex;align-items:center;gap:4px;font-size:14px;font-weight:500}
+html body #app #dept .dp-dashboard-label img {width:20px;height:20px;object-fit:contain}
+html body #app #dept .dp-dashboard-task strong {display:flex;align-items:baseline;justify-content:space-between;font-size:28px;font-weight:600;color:#ad6800}
+html body #app #dept .dp-dashboard-task:nth-child(2) strong {color:var(--color-primary-solid)}
+html body #app #dept .dp-dashboard-task small {font-size:12px;font-weight:400;color:var(--color-text-secondary)}
+html body #app #dept .dp-dashboard-task em {font-size:12px;font-weight:400;font-style:normal;color:var(--color-text-secondary)}
+html body #app #dept .dp-map-card {padding:16px 0 0;overflow:hidden}
+html body #app #dept .dp-map-card>.dp-section-heading {padding:0 16px;margin-bottom:12px}
+html body #app #dept .dp-map {height:269px;border-radius:0}
+html body #app #dept .dp-shortcuts {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:0}
+html body #app #dept .dp-shortcuts>button {display:flex;align-items:center;gap:8px;min-height:44px;padding:0 12px;border:0;border-radius:4px;font-size:14px;font-weight:500;color:var(--color-text-primary);background:url('/assets/figma-home/shelter-bg.png') 38% 37% / 108.19% 139.45% no-repeat}
+html body #app #dept .dp-shortcuts>button:nth-child(2) {background-image:url('/assets/figma-home/contact-bg.png');background-size:cover;background-position:center}
+html body #app #dept .dp-shortcuts img {width:21px;height:20px;object-fit:contain}
+html body #app .dp-detail-fields {display:flex;flex-direction:column;gap:8px}
+html body #app .dp-detail-field {display:grid;grid-template-columns:minmax(80px,.8fr) minmax(0,1.2fr);gap:8px;padding:0;border:0}
+html body #app .dp-detail-field :is(span,b) {font-size:14px;font-weight:400;min-width:0;overflow-wrap:anywhere}
+html body #app .dp-detail-field span {color:var(--color-text-secondary)}
+html body #app .dp-detail-field b {color:var(--color-text-primary)}
+html body #app .dp-form-fields {display:flex;flex-direction:column;padding:0}
+html body #app .dp-form-group>summary {padding:0;min-height:44px;font-size:18px;font-weight:600;color:var(--color-text-primary)}
+html body #app .dp-form-group[open]>summary {margin-bottom:12px}
+html body #app .dp-basis {margin-top:12px;padding:12px}
+html body #app .dp-task-hero .dp-inline-actions>.dp-button {flex:1 1 120px;font-size:14px}
+html body #app .dp-map-switch {min-width:0}
+html body #app .detail-lines {background:transparent;padding:0;border:0}
+html body #app #collectionDetailBody>.detail-card {background:transparent}
+html body #app .detail-hero {margin-bottom:12px;background:white;border-radius:12px;border:0}
+html body #app .detail-hero-name {font-size:16px;font-weight:600;color:var(--color-text-primary)}
+html body #app .detail-hero-summary {font-size:12px;color:var(--color-text-secondary);margin-top:4px}
+html body #app :is(.status-badge,.collection-tag-chip) {font-size:12px;padding:4px 8px;border-radius:4px;font-weight:400}
+html body #app .status-badge.pending {color:var(--color-warning-text);background:#fffbe6}
+html body #app .status-badge.verified {color:var(--color-success-text);background:#f6ffed}
+html body #app .detail-menu-trigger {width:44px;height:44px;padding:0}
+html body #app .verify-action {min-height:44px;background:var(--color-primary-solid);border:2px solid transparent;background-clip:padding-box;color:white;border-radius:4px;font-size:14px;font-weight:500}
+html body #app .search-toolbar {min-height:52px;gap:8px;margin-bottom:12px}
+html body #app #collection-search .search-box {display:flex;gap:8px;align-items:center;min-width:0;border:0;background:transparent;padding:0;overflow:visible}
+html body #app #collectionSearchInput {min-width:0;flex:1;min-height:44px;border:0;border-block:6px solid transparent;background:var(--color-divider);background-clip:padding-box;border-radius:6px;padding:0 8px}
+html body #app #collection-search .search-box>.btn {flex:0 0 64px;padding-inline:8px}
+html body #app .dp-search {min-height:44px;border:0;border-radius:6px;background:white;padding:0 8px;gap:8px}
+html body #app .dp-search input {border:0;background:transparent;min-width:0;padding-inline:0}
+html body #app :is(.dp-toolbar,.dp-inline-actions) {gap:8px}
+@media(max-width:360px) {
+  html body #app #dept .dp-shortcuts>button {font-size:12px;padding-inline:8px;gap:4px}
+  html body #app #dept .dp-dashboard-label {font-size:14px}
+}
+html body #app .transfer-processing .form-grid,html body #app #batch .form-grid {grid-template-columns:minmax(0,1fr)}
+html body #app .transfer-field em {padding:0;background:none;border-radius:0;font-size:14px}
+html body #app .view:has(.transfer-sticky-actions) {padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}
+html body #app .transfer-sticky-actions {padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));gap:8px;border-top:.5px solid var(--color-divider);background:white}
+html body #app #transferGrouping:empty {display:none}
+html body #app #transfer-list .transfer-tabs {padding:0;border:0;display:block;margin-bottom:16px}
+html body #app .dp-profile-summary .dp-object-hero {padding:0;gap:8px;margin:0 0 12px;background:white;min-width:0}
+html body #app .dp-object-hero h2 {font-size:16px;margin:0}
+html body #app .dp-object-hero p {font-size:12px;margin:4px 0 0;color:var(--color-text-secondary)}
+html body #app .dp-object-hero .dp-hero-icon {background:transparent;color:var(--color-primary-solid);width:24px;flex:0 0 24px}
+html body #app .dp-profile-summary .dp-inline-actions {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:0;margin:0}
+html body #app .dp-profile-summary .dp-inline-actions .primary {grid-column:1 / -1}
+html body #app .dp-profile-summary .dp-tabs {margin:0 0 12px}
+html body #app .dp-detail-field > b {text-align:left}
+html body #app #dept .dp-shortcuts>button:nth-child(2) {background-size:105.06% 132.64%;background-position:0 54%}
+html body #app #dept .dp-shortcuts>button:nth-child(2)>img {width:26.95px;height:26.95px;object-fit:cover;margin-left:-3px;margin-right:-4px}
+
+html body #app small {font-size:12px}
+html body #app .status-line {display:flex;flex-wrap:wrap;gap:8px;padding:12px 16px}
+html body #app .status-node {white-space:normal;min-width:0;gap:4px}
+html body #app .evidence {display:flex;flex-wrap:wrap;gap:8px;padding:12px 16px}
+html body #app .evidence>.standard-photo-upload {min-width:0;max-width:100%;padding:0;flex:1 1 104px}
+html body #app .sheet {border-radius:16px 16px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));box-shadow:var(--shadow-dialog)}
+html body #app .dp-voice {margin:0}
+html body #app .transfer-key-info a {display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 8px;border-radius:4px;background:var(--color-primary-soft);color:var(--color-primary-solid);font-size:14px;text-decoration:none}
+html body #app .transfer-key-info {align-items:center;gap:8px;flex-wrap:wrap}
+html body #app .transfer-reason {background:#fff1f0;color:var(--color-danger-pressed);border:0;border-radius:8px;padding:12px;margin:12px 0}
+html body #app .transfer-reason b {font-size:14px;color:var(--color-text-primary)}
+html body #app textarea {field-sizing:content}
+html body #app .collection-form-alert {padding:12px;margin-bottom:12px;border-radius:8px;background:#fff1f0;color:var(--color-danger-pressed);font-size:14px}
+html body #app .collection-field-error {font-size:12px;color:var(--color-danger-pressed);margin-top:-4px}
+html body #app :is(#transfer,#review,#grid-restore) .list-toolbar {position:static;top:auto;padding:0}
+html body #app .transfer-voice-samples {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
+html body #app .transfer-voice-samples>button {min-width:0;white-space:normal;font-size:14px;padding:8px 12px}
+html body #app .transfer-option {display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:56px;padding:12px;border:.5px solid var(--color-divider);border-radius:8px;background:white;text-align:left;color:var(--color-text-primary);font-size:14px}
+html body #app .transfer-option.selected {background:var(--color-primary-soft);color:var(--color-primary-solid);border-color:var(--color-primary-soft-pressed)}
+html body #app .transfer-option>span {flex:1;min-width:0}
+html body #app .transfer-option .app-icon {--icon-size:18px}
+html body #app .dp-form-field>.dp-picker {margin:0}
+/* A field gap is owned once: label -> control 8px, field -> field 16px. */
+html body #app :is(.dp-form-field,.transfer-field) {padding:0}
+html body #app :is(.dp-form-field,.transfer-field)>span:first-child {margin:0}
+html body #app .dp-readonly {border:0}
+html body #app .dp-readonly>b {text-align:left}
+html body #app :is(.dp-form-field,.transfer-field,.field) textarea {min-height:88px}
+/* Public Ant semantic classes keep 44px targets for segmented radio labels. */
+html body #app .standard-segmented {min-height:50px;height:auto;border-radius:6px;box-shadow:none}
+html body #app .standard-segment-label {display:flex;align-items:center;justify-content:center;min-height:44px;padding:0 8px;font-size:14px;line-height:normal}
+html body #app .top .standard-segment-label {font-size:12px;min-width:38px}
+html body #app .role-switch .standard-segmented {background:white}
+html body #app :is(.ph,.voice-title)+.field {padding-top:0}
+html body #app .dp-evidence>.dp-inline-actions>label.dp-button {cursor:pointer}
+html body #app .metrics {gap:12px;margin-bottom:12px}
+html body #app .metric {min-width:0;padding:16px;border:0;border-radius:12px;background:white}
+html body #app .metric strong {font-size:28px;font-weight:600;font-variant-numeric:tabular-nums}
+/* Figma's single-point artwork includes the numeral 1. Use it only for one
+   object; clusters keep their live counts on a separate readable surface. */
+html body #app .dp-marker {display:grid;place-items:center;width:44px;height:44px;min-width:44px;min-height:44px;border:0;border-radius:0;background:transparent;transform:translate(-50%,-50%)}
+html body #app .dp-marker::after {content:none}
+html body #app .dp-marker>span {display:grid;place-items:center;width:30px;height:30px;min-width:30px;padding:0;border:.5px solid white;border-radius:50%;background:var(--color-danger-solid);color:white;transform:none;font-size:12px;font-weight:500}
+html body #app .dp-marker.orange>span {background:#ad4e00}
+html body #app .dp-marker.yellow>span {background:#ffc53d;color:#1f1f1f}
+html body #app .dp-marker.green>span {background:#237804}
+html body #app .dp-marker.single-point>span {width:40px;height:40px;border:0;border-radius:0;background:transparent url('/assets/figma-home/map-pin-red.png') center / 40px 40px no-repeat}
+html body #app .dp-marker.single-point.green>span {background-image:url('/assets/figma-home/map-pin-green.svg');background-size:27.272px 34.184px}
+html body #app .home-map-marker.orange {--point-color:#ad4e00}
+html body #app .home-map-marker.red {--point-color:#cf1322}
+html body #app .home-map-marker.green {--point-color:#237804}
+html body #app .standard-select:focus-within {outline:2px solid var(--color-primary-solid);outline-offset:2px;border-radius:8px}
+html body #app .dp-marker.single-point.green>span {padding-bottom:4px}

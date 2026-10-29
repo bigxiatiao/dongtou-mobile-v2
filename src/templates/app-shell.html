@@ -1,7 +1,7 @@
 <main id="app">
 <header class="top">
-<div class="logo">防</div>
-<div class="brand" id="brandText"><span class="brand-title">洞头网格+应急工作端</span><div class="brand-context" id="brandContext"><button class="brand-scope" data-collection="scope-open"><span id="scopePathText">东屏街道 / 东屏03网格</span><b><i data-tabler=chevron-down></i></b></button><span class="brand-user">网格员 · 张海燕</span><div class="scope-options hidden" id="scopeOptions"></div></div>
+<div class="logo"><img class="home-platform-logo" src="/assets/figma-home/platform-logo.png" alt=""><span>防</span></div>
+<div class="brand" id="brandText"><span class="brand-title">洞头网格+应急工作端</span><div class="brand-context" id="brandContext"><button class="brand-scope" data-collection="scope-open"><i data-tabler=map-pin></i><span id="scopePathText">东屏街道 / 东屏03网格</span><b><i data-tabler=chevron-down></i></b></button><span class="brand-user">网格员 · 张海燕</span><div class="scope-options hidden" id="scopeOptions"></div></div>
 <div class="brand-context hidden" id="departmentContext"></div>
 </div>
 <div class="role-switch">
@@ -13,8 +13,8 @@
 <div class="card home-action-card" id="homeActionCard">
 <div class="home-action-summary">
 <div class="home-action-info">
-<div class="home-action-heading"><span class="home-eyebrow">当前行动</span><span class="home-action-state" id="homeActionState"></span></div>
 <h1 class="home-action-name" id="homeActionName"></h1>
+<div class="home-action-heading"><span class="home-action-state" id="homeActionState"></span></div>
 </div>
 <div class="home-weather" id="homeWeather" aria-label="当前有效气象预警"></div>
 </div>
@@ -30,18 +30,18 @@
 <b>18</b>待处理</div>
 </div>
 <div class="metrics">
-<div class="metric tap" data-workbench="transfer-list">
-<label>转移任务</label>
+<div class="metric tap" role="button" tabindex="0" data-workbench="transfer-list">
+<label><img src="/assets/figma-home/transfer-icon.png" alt="">转移任务</label>
 <strong class="hot">12</strong>
 <span class="tag r" id="homeTransferStatus"></span>
 </div>
-<div class="metric tap" data-workbench="risk-list">
-<label>风险排查</label>
+<div class="metric tap" role="button" tabindex="0" data-workbench="risk-list">
+<label><img src="/assets/figma-home/risk-icon.png" alt="">风险排查</label>
 <strong>8</strong>
-<span class="tag o">待排查5 · 处理中3</span>
+<span class="tag o">待排查5&#10;处理中3</span>
 </div>
-<div class="metric tap" data-workbench="base-list">
-<label>数据采集</label>
+<div class="metric tap" role="button" tabindex="0" data-workbench="base-list">
+<label><img src="/assets/figma-home/collection-icon.png" alt="">数据采集</label>
 <strong>18</strong>
 <span class="tag b" id="baseMetricStatus">待核查2 · 已核查2</span>
 </div>
@@ -55,11 +55,11 @@
 <div class="ph">快捷搜索</div>
 <div class="home-shortcut-grid">
 <button class="home-shortcut" data-home-search>
-<span class="home-shortcut-icon"><i data-tabler=home-search></i></span>
+<span class="home-shortcut-icon"><img src="/assets/figma-home/search-icon.png" alt=""></span>
 <span>找人找房</span><span class="home-shortcut-arrow" aria-hidden="true"><i data-tabler=chevron-right></i></span>
 </button>
 <button class="home-shortcut" data-grid-shelter="open">
-<span class="home-shortcut-icon shelter"><i data-tabler=home-shield></i></span>
+<span class="home-shortcut-icon shelter"><img src="/assets/figma-home/shelter-icon.png" alt=""></span>
 <span>安置点查询</span><span class="home-shortcut-arrow" aria-hidden="true"><i data-tabler=chevron-right></i></span>
 </button>
 </div>
@@ -69,13 +69,11 @@
 <section class="view" id="transfer"></section>
 <section class="view" id="review"></section>
 <section class="view" id="risk">
-<div class="head">
-<div>
+<div class="list-toolbar">
+<button class="btn back" data-tab="tasks" aria-label="返回上一页"><i data-tabler=chevron-left></i></button>
 <h1>房屋风险排查</h1>
+</div>
 <div class="sub">本次动态风险 · 不直接改主数据</div>
-</div>
-<button class="btn" data-tab="tasks"><i data-tabler=chevron-left></i> 返回</button>
-</div>
 <div class="card">
 <div class="row">
 <div class="avatar"><i data-tabler=home></i></div>
@@ -178,7 +176,7 @@
 <div class="actions">
 <button class="btn" data-action="draft">暂存</button>
 <button class="btn primary" data-action="submit-risk">上报并生成处置</button>
-<button class="btn" data-action="apply-release">申请风险解除</button>
+<button class="btn danger" data-action="apply-release">申请风险解除</button>
 </div>
 <div class="offline">上报后生成隐患记录、转移建议和部门处置单。</div>
 </div>
@@ -869,9 +867,9 @@
 <button class="nav" data-tab="me">
 <b><i data-tabler=user></i></b>我的</button>
 </nav>
-<div class="toast" id="toast">
+<div class="toast" id="toast" role="status" aria-live="polite">
 </div>
-<div class="modal" id="modal">
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mt">
 <div class="sheet">
 <button class="close" id="close" aria-label="关闭"><i data-tabler=x></i></button>
 <h3 id="mt">操作提示</h3>

@@ -1,0 +1,146 @@
+/* Figma shared header and 77:1404 home. Local artwork; live figures/actions. */
+.home-platform-logo {display:none}
+html body #app {
+  background:#f5f5f5;
+  color:#1f1f1f;
+  font-family:"PingFang SC","Noto Sans SC","Noto Sans",sans-serif;
+}
+html body #app .top {
+  position:relative; z-index:3; min-height:133px;
+  grid-template-columns:32px minmax(0,1fr) auto;
+  gap:8px 10px; align-content:start;
+  padding:calc(12px + env(safe-area-inset-top,0px)) 16px 25px;
+  border:0; background:#0871cd; color:white;
+}
+html body #app .top::before {
+  content:""; position:absolute; inset:0; z-index:-1;
+  background:url('/assets/figma-home/header-bay.png') center / 100% 160px no-repeat;
+  transform:scaleX(-1); pointer-events:none;
+}
+html body #app .top .logo {
+  display:block; position:relative; width:32px; height:32px; overflow:hidden;
+  border-radius:6px; background:linear-gradient(white,#d6edff);
+}
+html body #app .logo > span {display:none}
+html body #app .home-platform-logo {
+  display:block; position:absolute; width:45px; height:45px; max-width:none; left:-7px; top:-5px;
+}
+html body #app .top .brand-title {
+  color:white; font-size:14px; font-weight:600; line-height:normal; letter-spacing:0;
+}
+html body #app .top .brand-context {
+  flex-wrap:wrap; gap:4px 8px;
+}
+html body #app .top .brand-scope {
+  max-width:none; min-height:44px; height:auto; padding:6px 8px;
+  display:flex; align-items:center; gap:3px;
+  background:white; border:0; border-radius:6px; color:#595959;
+  font-size:12px; font-weight:500; line-height:normal;
+}
+html body #app .top .brand-scope::before {display:none}
+html body #app .top .brand-scope .app-icon {
+  width:14px; height:14px; flex:0 0 14px; stroke-width:1.25;
+}
+html body #app .top .brand-user {
+  color:white; font-size:12px; font-weight:600; text-shadow:0 1px 3px #004c96;
+}
+html body #app .top .role-switch {align-self:center; padding:0; border:0}
+html body[data-role="grid"] #app #home {
+  position:relative; z-index:4; margin-top:-16px;
+  padding:16px 16px calc(28px + env(safe-area-inset-bottom,0px));
+  background:#f5f5f5; border-radius:16px 16px 0 0;
+  border-top:1px solid white; line-height:normal; letter-spacing:0;
+}
+html body #app #home.active {display:flex; flex-direction:column; gap:12px}
+html body #app #home :is(.card,.metrics,.head) {margin:0; box-shadow:none}
+html body #app #home .card {border:0; border-radius:12px; background:white}
+html body #app :is(#home,#dept) .home-action-card {
+  position:relative; padding:16px; display:flex; flex-direction:column; gap:12px;
+  border:1px solid white; isolation:isolate;
+}
+html body #app :is(#home,#dept) .home-action-card::before {
+  content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
+  background:url('/assets/figma-home/action-bg.png') 51% 50% / 101.75% 116.56% no-repeat; opacity:.67;
+}
+html body #app :is(#home,#dept) .home-action-summary {padding:0; gap:8px; min-height:50px}
+html body #app :is(#home,#dept) .home-action-name {
+  margin:0 0 2px; color:#1f1f1f; font-size:16px; font-weight:600; line-height:normal;
+}
+html body #app :is(#home,#dept) .home-action-state {
+  border:0; background:#f6ffed; color:#237804; border-radius:4px;
+  font-size:12px; padding:2px 4px; line-height:normal;
+}
+html body #app :is(#home,#dept) .home-weather {max-width:124px; flex:0 0 auto; gap:8px; flex-wrap:wrap}
+html body #app :is(#home,#dept) .home-weather img {display:block; width:58px; height:50px; object-fit:contain; aspect-ratio:58/50}
+html body #app :is(#home,#dept) .weather-warning {max-width:124px; flex-basis:auto; width:auto}
+html body #app :is(#home,#dept) .latest-notice {
+  min-height:24px; gap:8px; padding:0; border:0; background:transparent; color:#595959;
+}
+html body #app :is(#home,#dept) .latest-notice b {font-size:14px; font-weight:500; color:#1f1f1f}
+html body #app :is(#home,#dept) .latest-notice button {min-height:44px; font-size:12px; line-height:normal}
+html body #app :is(#home,#dept) .latest-notice .unread-dot {order:4; min-width:14px; height:14px; padding:0 3px; font-size:12px; background:#cf1322}
+html body #app :is(#home,#dept) .latest-notice > span:last-child {display:none}
+.home-notice-art {position:relative; flex:0 0 20px; width:20px; height:17.525px}
+.home-notice-art img {position:absolute; object-fit:contain}
+.home-notice-art img:nth-child(1) {left:0; top:0; width:15.452px; height:17.525px}
+.home-notice-art img:nth-child(2) {left:16.52px; top:3.61px; width:3.478px; height:9.097px}
+.home-notice-art img:nth-child(3) {left:14.25px; top:6.02px; width:2.408px; height:5.418px}
+/* The notification has a full row hit area without shrinking its text. */
+html body #app :is(#home,#dept) .latest-notice {position:relative}
+html body #app #home .head {min-height:47px; padding:0; display:flex; align-items:center; justify-content:space-between}
+html body #app #home .head h1 {margin:0; font-size:18px; font-weight:600; line-height:normal}
+html body #app #home .sub {margin:4px 0 0; font-size:12px; color:#595959; line-height:normal}
+html body #app #home .chip {display:flex; flex-direction:column; align-items:flex-start; gap:4px; width:64px; border:0; padding:0; background:none; color:#595959; font-size:12px}
+html body #app #home .chip b {color:#a8071a; font-size:18px; font-weight:600}
+html body #app #home .metrics {display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; align-items:stretch}
+html body #app #home .metric {
+  position:relative; isolation:isolate; overflow:hidden; display:flex; flex-direction:column;
+  min-width:0; min-height:133px; padding:12px; gap:4px;
+  background:white; border:1px solid white; border-radius:12px;
+}
+html body #app #home .metric::before {content:""; position:absolute; inset:0; z-index:-1; pointer-events:none; background-repeat:no-repeat}
+html body #app #home .metric:nth-child(1)::before {background-image:url('/assets/figma-home/transfer-bg.png'); background-size:110.36% 112.63%; background-position:72% 40%}
+html body #app #home .metric:nth-child(2)::before {background-image:url('/assets/figma-home/risk-bg.png'); background-size:131.01% 111.4%; background-position:37% 52%}
+html body #app #home .metric:nth-child(3)::before {background-image:url('/assets/figma-home/collection-bg.png'); background-size:159.59% 124.77%; background-position:49% 63%}
+html body #app #home .metric label {display:flex; align-items:center; gap:4px; font-size:14px; font-weight:500; color:#595959; line-height:normal}
+html body #app #home .metric label img {width:20px; height:20px; flex:0 0 20px; object-fit:contain}
+html body #app #home .metric:nth-child(2) label img {object-fit:contain; object-position:center; padding:1px 1.5px}
+html body #app #home .metric strong {margin:0; font-size:28px; font-weight:600; line-height:normal; font-variant-numeric:tabular-nums; color:#0958d9}
+html body #app #home .metric:nth-child(1) strong {color:#ad6800}
+html body #app #home .metric:nth-child(2) strong {color:#237804}
+html body #app #home .metric .tag {display:block; color:#595959; font-size:12px; line-height:normal; white-space:pre-line; overflow-wrap:anywhere; word-break:normal; padding:0; border:0; background:none}
+html body #app #home #homeMapCard {position:relative; overflow:hidden}
+html body #app #home #homeMapCard > .ph {min-height:58px; padding:10px 16px; border:0; font-size:18px; font-weight:600; color:#1f1f1f}
+html body #app #home .home-map-panel {height:257px; background:#e8e8ec url('/assets/figma-home/district-map.png') center / cover no-repeat; border:0}
+html body #app #home .home-map-land {display:none}
+html body #app #home .home-map-example {top:8px; right:8px; font-size:12px; padding:2px 4px; color:#595959; background:rgba(255,255,255,.95)}
+html body #app #home .home-map-legend {position:absolute; left:12px; bottom:12px; max-width:calc(100% - 24px); padding:8px; gap:10px; border-radius:6px; background:rgba(255,255,255,.95); font-size:12px; color:#595959}
+html body #app #home .home-map-legend > span {gap:4px}
+html body #app #home .home-map-marker .app-icon {width:20px; height:20px; flex-basis:20px; stroke-width:1.25}
+html body #app #home .home-shortcuts {padding:16px; display:flex; flex-direction:column; gap:12px}
+html body #app #home .home-shortcuts .ph {min-height:0; line-height:normal; padding:0; border:0; font-size:18px; font-weight:600; color:#1f1f1f}
+html body #app #home .home-shortcut-grid {padding:0; gap:8px}
+html body #app #home .home-shortcut {position:relative; isolation:isolate; min-height:44px; padding:0 12px; gap:8px; border:0; border-radius:4px; background:none; font-size:14px; font-weight:500; color:#1f1f1f}
+html body #app #home .home-shortcut::before {content:""; position:absolute; inset:2px 0; z-index:-1; border-radius:4px; background:url('/assets/figma-home/search-bg.png') 57% 41% / 105.1% 138.29% no-repeat}
+html body #app #home .home-shortcut:nth-child(2)::before {background-image:url('/assets/figma-home/shelter-bg.png'); background-size:108.19% 139.45%; background-position:38% 37%}
+html body #app #home .home-shortcut-icon {width:20px; height:20px; flex:0 0 20px; position:relative}
+html body #app #home .home-shortcut-icon img {position:absolute; width:23px; height:19px; left:-1px; top:-1px; object-fit:contain}
+html body #app #home .home-shortcut-icon.shelter img {width:21px; height:18px; left:-1.5px; top:0}
+html body #app #home .home-shortcut-arrow {display:none}
+html body #app #home :is(.metric,.home-shortcut):focus-visible {outline:2px solid #0958d9; outline-offset:2px}
+@media (max-width:360px) {
+  html body #app .top {gap:8px}
+  html body #app .top .brand-context {display:grid; grid-template-columns:minmax(0,1fr) auto}
+  html body #app .top .brand-scope {width:100%}
+  html body #app .top .brand-scope > span {text-align:left; white-space:normal; overflow-wrap:anywhere}
+  html body #app #home .metric {padding:10px 8px}
+  html body #app #home .metric label {font-size:12px; gap:3px}
+  html body #app #home .metric label img {width:17px; height:17px; flex-basis:17px}
+  html body #app :is(#home,#dept) .home-action-summary {flex-wrap:wrap}
+  html body #app :is(#home,#dept) .home-weather {margin-left:auto}
+  html body #app :is(#home,#dept) .home-action-info {flex-basis:120px}
+  html body #app #home .home-shortcut {padding:0 8px; gap:4px; font-size:12px}
+}
+
+/* The shared header keeps its existing appearance on other screens. */
+html body #app #home .app-icon {stroke-width:1.25}

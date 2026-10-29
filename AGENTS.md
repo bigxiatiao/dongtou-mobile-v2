@@ -3,7 +3,7 @@
 本项目所有页面、组件及后续功能统一使用 Tabler Icons。
 
 - React 使用已安装的 `@tabler/icons-react`，复用 `src/components/AppIcon.jsx` 的 `AppIcon` 及显式导入注册表，避免重复封装和全量动态导入。
-- 默认使用 Outline，尺寸 20px、描边 1.5、颜色继承 `currentColor`；统一样式位于 `src/icon-system.css`。
+- 使用 Outline；图标大小不固定为 20px，根据同排文字或内容的实际高度调整并光学居中，同角色保持一致；描边 1.25px、颜色继承 `currentColor`。视觉尺寸与至少 44×44px 的操作热区分离；统一样式位于 `src/icon-system.css`，运行时尚需按新版规范对齐。
 - 根据功能和交互语义选图标；添加前确认组件在已安装包中真实导出，再补充注册表。
 - React 使用 `<AppIcon name="search" />`。现有 HTML 业务模板使用 `<i data-tabler=search></i>`，由 `TemplateView` 渲染为同一个组件。
 - 禁止用 Emoji、Unicode 字符、手绘 SVG 或 CSS 绘制符号替代已有 Tabler 图标。数字、个人姓名首字、业务文字、地图几何与现场凭证示例属于内容，不当作图标替换。
@@ -12,3 +12,5 @@
 
 官方目录：https://tabler.io/icons
 源码：https://github.com/tabler/tabler-icons
+
+前端开发设计规范统一见根目录 `design.md`（2026-10-28）。`docs/dongtou-mobile-ui-refine.md` 为此前的 Skill 版规范归档；`v2/VISUAL-SYSTEM.md` 中旧颜色、字号与圆角等属于现有实现记录；与新版冲突时以 `design.md` 为准。规范更新不代表运行时代码或 Figma 已同步修改。

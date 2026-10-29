@@ -1,5 +1,7 @@
 # v2 移动端视觉调整
 
+> 2026-10-28：本文件保留现有实现与历史验证记录。最新设计规则以 [前端开发设计规范](../design.md) 为准；下面的旧色阶、12/14/18px 字号、8px 卡片圆角及固定20px/1.5描边图标尚未按新版同步。此次仅修订文档，不代表代码或 Figma 已应用新版规则。
+
 输入：A / Prototype Redesign；输出：React + Ant Design 移动端预览。
 
 ## 入口与运行
@@ -13,7 +15,7 @@ npm run dev -- --port 4176
 
 访问 http://127.0.0.1:4176/v2/ ，或默认入口 http://127.0.0.1:4176/ 。源码需要 Vite 编译 JSX，不再使用 Python 静态服务。
 
-## 共享规范
+## 现有实现记录（待对齐新版规范）
 
 - `radix-tokens.css`：本地 Radix Colors 3.0.0 sRGB 色阶，MIT 许可见 `RADIX-LICENSE.txt`。
 - `visual-system.css`：共享组件规范及原有样式的统一覆盖。
@@ -44,4 +46,4 @@ Radix 使用规范：https://www.radix-ui.com/colors/docs/palette-composition/un
 
 ## 图标
 
-全项目统一使用 `@tabler/icons-react`，默认 Outline / 20px / stroke 1.5 / currentColor。React 通过 `src/components/AppIcon.jsx` 的显式注册表。模板使用 `data-tabler` 标记，由渲染层输出官方组件。气象预警使用 Tabler 灾种图标并保留完整预警名称与等级颜色；现场凭证示例图仍属于业务内容。后续页面遵循根目录 `AGENTS.md`，不得使用字符或手绘图标替代。
+全项目统一使用 `@tabler/icons-react`。现有代码为 Outline / 20px / stroke 1.5 / currentColor；新版目标为大小随同排内容高度调整、描边1.25px，尚未修改运行时实现。React 通过 `src/components/AppIcon.jsx` 的显式注册表。模板使用 `data-tabler` 标记，由渲染层输出官方组件。气象预警使用 Tabler 灾种图标并保留完整预警名称与等级颜色；现场凭证示例图仍属于业务内容。后续页面遵循根目录 `AGENTS.md` 和新版设计规范，不得使用字符或手绘图标替代。

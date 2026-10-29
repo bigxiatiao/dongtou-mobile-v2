@@ -8,6 +8,8 @@ import { bootstrapBusiness } from './legacy/bootstrap';
 await loadStyles();
 await import('./icon-system.css');
 await import('./standard-controls.css');
+await import('./home-figma.css');
+await import('./design-system.css');
 document.body.dataset.role = 'grid';
 // Theme reads the loaded local palette. No duplicated initialization in effects.
 const { default: App } = await import('./App');

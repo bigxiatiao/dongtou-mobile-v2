@@ -636,7 +636,7 @@ assert.ok(pickerView.innerHTML.includes('保留尚未提交的说明'));
 bindPickerForm({ transferResult: '', placementType: 'center', placeId: '', transferNote: '保留说明' });
 assert.doesNotThrow(() => choosePicker('placeId', 'shelter-001'));
 assert.ok(pickerView.innerHTML.includes('东屏避灾安置中心'), 'selected shelter is rendered');
-assert.equal((pickerView.innerHTML.replace(/<i data-tabler=[^>]+><\/i>/g, '').match(/<summary>展示更多（选填）<\/summary>/g) || []).length, 1, 'only placement extras are collapsed');
+assert.equal((pickerView.innerHTML.replace(/<i data-tabler=[^>]+><\/i>/g, '').match(/<summary>展示更多(?:（选填）)?<\/summary>/g) || []).length, 1, 'only placement extras are collapsed');
 assert.ok(!/<details\b[^>]*>(?:(?!<\/details>)[\s\S])*data-form="transferNote"/.test(pickerView.innerHTML), 'handling note is directly visible');
 assert.ok(!/<details\b[^>]*>(?:(?!<\/details>)[\s\S])*transfer-evidence/.test(pickerView.innerHTML), '现场照片 is directly visible');
 

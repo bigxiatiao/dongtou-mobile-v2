@@ -7,7 +7,7 @@ html body #app [data-standard-choice] {
 html body #app .top [data-standard-choice] { flex:none; margin:0; }
 html body #app .standard-icon-button {
   display:inline-flex; align-items:center; justify-content:center; flex:none;
-  width:40px; min-width:40px; height:40px; min-height:40px; padding:0;
+  width:44px; min-width:44px; height:44px; min-height:44px; padding:0;
 }
 html body #app :is(.back,.dp-back,.gs-back),
 html body #app :is(.back,.dp-back,.gs-back):is(:hover,:active) {
@@ -53,7 +53,7 @@ html body #app .standard-select input[role="combobox"][type] {
 
 /* Compact mobile navigation: keep the chevron beside the page title. */
 html body #app button:is(.back,.dp-back,.gs-back)[aria-label="返回上一页"] {
-  flex:0 0 32px; width:32px; min-width:32px; height:32px; min-height:32px;
+  flex:0 0 44px; width:44px; min-width:44px; height:44px; min-height:44px;
   padding:0; border-radius:4px;
 }
 html body #app #base-list { padding-bottom:calc(88px + env(safe-area-inset-bottom,0px)); }

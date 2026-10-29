@@ -40,7 +40,7 @@ let messageFilter='全部';
 const noticeBar=document.getElementById('latestNotice');
 function renderNoticeBar() {
   const unread=messages.filter(m=>!readMessages.has(m.id)).length;
-  renderGridHTML(noticeBar, '<b>最新通知</b>'+(unread?'<i class="unread-dot">'+unread+'</i>':'')+'<button data-workbench="notice-list">09:20 镇街指挥室：海滨路低洼段因积水暂时无法通行，请绕行滨海大道。　09:10 安置点接收工作已启动。</button><span><i data-tabler=chevron-right></i></span>')
+  renderGridHTML(noticeBar, '<span class="home-notice-art" aria-hidden="true"><img src="/assets/figma-home/notice-main.png" alt=""><img src="/assets/figma-home/notice-wave.png" alt=""><img src="/assets/figma-home/notice-wave-small.png" alt=""></span><b>最新通知</b>'+(unread?'<i class="unread-dot">'+unread+'</i>':'')+'<button data-workbench="notice-list">09:20 镇街指挥室：海滨路低洼段因积水暂时无法通行，请绕行滨海大道。　09:10 安置点接收工作已启动。</button><span><i data-tabler=chevron-right></i></span>')
 }
 renderNoticeBar();
 function renderNotices() {

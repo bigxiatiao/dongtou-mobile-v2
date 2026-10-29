@@ -27,7 +27,7 @@ describe('React migration compatibility', () => {
     const search = document.querySelector('[data-save] svg');
     expect(search.classList.contains('tabler-icon-search')).toBe(true);
     expect(search.getAttribute('width')).toBe('20');
-    expect(search.getAttribute('stroke-width')).toBe('1.5');
+    expect(search.getAttribute('stroke-width')).toBe('1.25');
     expect(search.getAttribute('stroke')).toBe('currentColor');
     expect(search.getAttribute('aria-hidden')).toBe('true');
     await act(async () => window.ReactView.html(document.getElementById('sheet'), '<button data-choice="selected" aria-pressed="true"><i data-tabler=check></i>已选择</button>'));
@@ -121,4 +121,32 @@ it('mounts schema photo fields through the template parser and retains the file 
   expect(field.multiple).toBe(true);
   expect(field.hidden).toBe(true);
   expect(document.querySelector('[aria-label="上传照片"]')).not.toBeNull();
+});
+
+it('keeps an explicitly hidden photo input inside its native label without nesting an upload widget', async () => {
+  await mount('<main id="app"><form novalidate><label class="dp-button">拍照/选图<input id="departmentPhoto" type="file" accept="image/*" capture="environment" hidden></label></form></main>');
+  expect(document.querySelector('form').noValidate).toBe(true);
+  const input = document.getElementById('departmentPhoto');
+  expect(input.hidden).toBe(true);
+  expect(input.closest('label').textContent).toBe('拍照/选图');
+  expect(input.getAttribute('capture')).toBe('environment');
+  expect(document.querySelector('.standard-photo-upload')).toBeNull();
+  const changed = vi.fn(); host.addEventListener('change', changed);
+  input.dispatchEvent(new Event('change', { bubbles: true }));
+  expect(changed).toHaveBeenCalledOnce();
+  expect(changed.mock.calls[0][0].target).toBe(input);
+});
+
+it('reflects native schema validation on the visible Select without changing its value', async () => {
+  await mount('<main id="app"><label>性别<select aria-label="性别" aria-required="true" data-field="gender"><option>女</option><option>男</option></select></label><span id="gender-error">请选择性别</span></main>');
+  const native = document.querySelector('select');
+  await act(async () => { native.setAttribute('aria-invalid', 'true'); native.setAttribute('aria-describedby', 'gender-error'); });
+  const visible = document.querySelector('[role="combobox"]');
+  expect(visible.getAttribute('aria-required')).toBe('true');
+  expect(visible.getAttribute('aria-invalid')).toBe('true');
+  expect(visible.getAttribute('aria-describedby')).toBe('gender-error');
+  expect(native.value).toBe('女');
+  await act(async () => { native.removeAttribute('aria-invalid'); native.removeAttribute('aria-describedby'); });
+  expect(visible.hasAttribute('aria-invalid')).toBe(false);
+  expect(visible.hasAttribute('aria-describedby')).toBe(false);
 });

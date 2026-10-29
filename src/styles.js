@@ -9,7 +9,7 @@ const sheets = [
   ['home-map', new URL('../v2/home-map.css', import.meta.url).href],
   ['grid-shelters', new URL('../v2/grid-shelters.css', import.meta.url).href],
   ['department', new URL('../v2/department.css', import.meta.url).href],
-  ['visual-system', new URL('../v2/visual-system.css', import.meta.url).href],
+  ['design-tokens', new URL('./design-tokens.css', import.meta.url).href],
 ];
 export function loadStyles() {
   return Promise.all(sheets.map(([name, href]) => new Promise((resolve, reject) => {
