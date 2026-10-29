@@ -1,6 +1,6 @@
 # 洞头基层智治系统移动端 V2
 
-独立的 React 19 + Ant Design 6 + Vite 移动端演示项目，包含基层与部门两套工作页面，统一使用 Tabler Icons。使用本地演示数据，未连接真实业务后端。
+独立的 React 19 + TDesign Mobile React 1 + Vite 移动端演示项目，包含基层与部门两套工作页面，统一使用 Tabler Icons。使用本地演示数据，未连接真实业务后端。
 
 ## 安装与运行
 
@@ -29,9 +29,16 @@ npm run preview -- --port 4177
 - `src/legacy/bootstrap.js`：现有业务控制器的加载与角色切换桥接。
 - `v2/`：业务控制器、数据、状态机、样式、回归测试及字段对照资料。
 - `v2/FIELD-MATRIX.md`：字段及演示边界。
-- `AGENTS.md`：项目图标约定。
+- `design.md`：唯一前端设计规范、组件规格和实现入口。
+- `AGENTS.md`：项目图标及开发约定。
 
 保留 `/v2/` 目录结构以维持现有导入路径；本仓库不依赖原项目目录，也不包含旧版 Ionic 入口。
+
+## 组件与顶部导航
+
+组件使用 `tdesign-mobile-react`；主题映射位于 `src/tdesign-theme.css`，图标继续使用 Tabler Outline。共享导航由 `AppNavigation` 渲染在平台头图上方，标题、返回及右侧操作同步当前业务页面；正文不重复显示原导航。
+
+设计规范、控件规格与实现入口统一见 `design.md`。
 
 ## 来源
 

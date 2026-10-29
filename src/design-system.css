@@ -232,14 +232,14 @@ html body #app #dept .dp-dashboard-task strong {display:flex;align-items:baselin
 html body #app #dept .dp-dashboard-task:nth-child(2) strong {color:var(--color-primary-solid)}
 html body #app #dept .dp-dashboard-task small {font-size:12px;font-weight:400;color:var(--color-text-secondary)}
 html body #app #dept .dp-dashboard-task em {font-size:12px;font-weight:400;font-style:normal;color:var(--color-text-secondary)}
-html body #app #dept .dp-map-card {padding:16px 0 0;overflow:hidden}
-html body #app #dept .dp-map-card>.dp-section-heading {padding:0 16px;margin-bottom:12px}
-html body #app #dept .dp-map {height:269px;border-radius:0}
+html body #app #dept .dp-map-card {display:flex;flex-direction:column;padding:0;overflow:hidden;background:transparent;gap:12px}
+html body #app #dept .dp-map-card>.dp-section-heading {padding:0;margin:0;min-height:44px}
+html body #app #dept .dp-map {height:285px;border-radius:12px;border-top:1px solid white;background-size:100% 100%}
 html body #app #dept .dp-shortcuts {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:0}
-html body #app #dept .dp-shortcuts>button {display:flex;align-items:center;gap:8px;min-height:44px;padding:0 12px;border:0;border-radius:4px;font-size:14px;font-weight:500;color:var(--color-text-primary);background:url('/assets/figma-home/shelter-bg.png') 38% 37% / 108.19% 139.45% no-repeat}
+html body #app #dept .dp-shortcuts>button {display:flex;align-items:center;gap:8px;min-height:52px;padding:0 12px;border:0;border-radius:4px;font-size:14px;font-weight:500;color:var(--color-text-primary);background:url('/assets/figma-home/shelter-bg.png') 51.68% 46.69% / 117.53% 128.83% no-repeat}
 html body #app #dept .dp-shortcuts>button:nth-child(2) {background-image:url('/assets/figma-home/contact-bg.png');background-size:cover;background-position:center}
 html body #app #dept .dp-shortcuts img {width:21px;height:20px;object-fit:contain}
-html body #app .dp-detail-fields {display:flex;flex-direction:column;gap:8px}
+html body #app .dp-detail-fields {display:flex;flex-direction:column;gap:8px;padding:0}
 html body #app .dp-detail-field {display:grid;grid-template-columns:minmax(80px,.8fr) minmax(0,1.2fr);gap:8px;padding:0;border:0}
 html body #app .dp-detail-field :is(span,b) {font-size:14px;font-weight:400;min-width:0;overflow-wrap:anywhere}
 html body #app .dp-detail-field span {color:var(--color-text-secondary)}
@@ -285,7 +285,7 @@ html body #app .dp-profile-summary .dp-inline-actions {display:grid;grid-templat
 html body #app .dp-profile-summary .dp-inline-actions .primary {grid-column:1 / -1}
 html body #app .dp-profile-summary .dp-tabs {margin:0 0 12px}
 html body #app .dp-detail-field > b {text-align:left}
-html body #app #dept .dp-shortcuts>button:nth-child(2) {background-size:105.06% 132.64%;background-position:0 54%}
+html body #app #dept .dp-shortcuts>button:nth-child(2) {background-size:125.37% 134.62%;background-position:50% 50%}
 html body #app #dept .dp-shortcuts>button:nth-child(2)>img {width:26.95px;height:26.95px;object-fit:cover;margin-left:-3px;margin-right:-4px}
 
 html body #app small {font-size:12px}
@@ -316,7 +316,7 @@ html body #app :is(.dp-form-field,.transfer-field)>span:first-child {margin:0}
 html body #app .dp-readonly {border:0}
 html body #app .dp-readonly>b {text-align:left}
 html body #app :is(.dp-form-field,.transfer-field,.field) textarea {min-height:88px}
-/* Public Ant semantic classes keep 44px targets for segmented radio labels. */
+/* Shared semantic classes keep 44px targets for segmented radio labels. */
 html body #app .standard-segmented {min-height:50px;height:auto;border-radius:6px;box-shadow:none}
 html body #app .standard-segment-label {display:flex;align-items:center;justify-content:center;min-height:44px;padding:0 8px;font-size:14px;line-height:normal}
 html body #app .top .standard-segment-label {font-size:12px;min-width:38px}
@@ -341,3 +341,12 @@ html body #app .home-map-marker.red {--point-color:#cf1322}
 html body #app .home-map-marker.green {--point-color:#237804}
 html body #app .standard-select:focus-within {outline:2px solid var(--color-primary-solid);outline-offset:2px;border-radius:8px}
 html body #app .dp-marker.single-point.green>span {padding-bottom:4px}
+
+/* Home section headings sit directly on the page, as in the updated Figma. */
+html body #app #dept .dp-shortcut-card {display:flex;flex-direction:column;padding:0;background:transparent;gap:12px}
+html body #app #dept .dp-shortcut-card>.dp-section-heading {padding:0;margin:0;min-height:0}
+html body #app #dept .dp-shortcuts>button {border:1px solid white;justify-content:flex-start}
+html body #app :is(#home .home-map-switch,#dept .dp-map-switch) {min-height:44px;padding:0;background:transparent;display:flex;align-items:center}
+html body #app :is(#home .home-map-switch,#dept .dp-map-switch) .standard-segmented {min-height:44px;padding:3px;background:white}
+html body #app :is(#home .home-map-switch,#dept .dp-map-switch) .standard-segment-label {min-height:44px;padding:0 12px;font-size:12px;font-weight:600}
+html body #app #dept .dp-map .dp-legend {bottom:40px}

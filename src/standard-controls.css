@@ -1,4 +1,4 @@
-/* Layout adapters for official Ant controls. Selection visuals come from tokens. */
+/* Layout adapters for official TDesign controls. Selection visuals come from tokens. */
 html body #app [hidden] { display:none !important; }
 html body #app [data-standard-choice] {
   display:block; min-width:0; padding:0; border:0; background:transparent;

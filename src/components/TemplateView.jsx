@@ -1,8 +1,8 @@
-import React, { memo, useCallback, useState, useSyncExternalStore } from 'react';
+import React, { memo, useCallback, useId, useLayoutEffect, useState, useSyncExternalStore } from 'react';
 import { createPortal, flushSync } from 'react-dom';
-import { Button, Input } from 'antd';
+import { Button } from 'tdesign-mobile-react';
 import { AppIcon } from './AppIcon';
-import { ChoiceControl, ScopeControl, SelectControl, PhotoControl, FileControl } from './StandardControls';
+import { ChoiceControl, ScopeControl, SelectControl, PhotoControl, FileControl, TextControl } from './StandardControls';
 
 // Business controllers keep their field schemas and event delegation. React owns
 // every template update, including dynamically created sheets. No eval or scripts.
@@ -38,6 +38,9 @@ function nodeSpec(node) {
         node.style.getPropertyValue(property),
       ]));
     } else props[attributes[name.toLowerCase()] || name] = booleanAttributes.has(name) ? true : value;
+  }
+  if (tag === 'button' && node.parentElement?.matches('.voice-title,.ph,.dp-section-heading,.sheet-head,.dp-sheet-title')) {
+    props.className = `${props.className || ''} section-action`.trim();
   }
   if (tag === 'input') {
     if (props.type !== 'file' && 'value' in props) { props.defaultValue = props.value; delete props.value; }
@@ -78,13 +81,19 @@ function auxiliaryIcon(spec) {
   return rules.find(([pattern]) => pattern.test(text))?.[1] || null;
 }
 const TemplateElement = memo(function TemplateElement({ spec }) {
+  const controlId = useId();
   const [content, setContent] = useState(() => ({ nodes: spec.children, revision: 0 }));
   const ref = useCallback(handle => {
-    // Public antd refs point to the actual native input/button.
+    // Register the native element used by existing controllers.
     const element = handle?.input || handle?.nativeElement || handle;
     if (!(element instanceof Element)) return;
     slots.set(element, nodes => setContent(previous => ({ nodes, revision: previous.revision + 1 })));
   }, []);
+  useLayoutEffect(() => {
+    if (spec.tag !== 'button') return;
+    const native = document.querySelector(`[data-template-control="${controlId}"]`);
+    if (native) ref(native);
+  });
   const { tag, props } = spec;
   const children = childrenFor(content.nodes, content.revision);
   if (props['data-tabler']) return <AppIcon name={props['data-tabler']} />;
@@ -98,7 +107,7 @@ const TemplateElement = memo(function TemplateElement({ spec }) {
   if (tag === 'select') return <SelectControl props={props} elementRef={ref}>{children}</SelectControl>;
   if (classes.includes('photo') && props['data-action'] === 'camera') return <PhotoControl props={props}>{children}</PhotoControl>;
   // Structural row buttons keep their native flow layout; actual action controls
-  // use Ant Button without changing the original data attributes or click path.
+  // use TDesign Button without changing the original data attributes or click path.
   const actionButton = tag === 'button' && !hasFlowContent(spec.children)
     && !/(?:map-marker|dp-marker|collection-marker|transfer-picker-trigger|dp-picker|transfer-option|dp-option|room-option|home-map-backdrop|brand-scope|transfer-group-head|dp-unit-progress|dp-group-label|home-shortcut)/.test(props.className || '')
     && props['data-workbench'] !== 'notice-list' && props['data-dp'] !== 'notices';
@@ -111,17 +120,17 @@ const TemplateElement = memo(function TemplateElement({ spec }) {
     const danger = /\bdanger\b/.test(props.className || '') || props['data-action'] === 'apply-release';
     const leadingIcon = !primary && !iconOnly ? auxiliaryIcon(spec) : null;
     return <Button {...buttonProps} className={`${props.className || ''} design-button${iconOnly ? ' standard-icon-button' : ''}`}
-      data-kind={danger ? 'danger' : primary ? 'primary' : 'light-blue'} aria-label={props['aria-label'] || fallbackLabel} ref={ref} htmlType={type || 'button'}
-      type={back ? 'text' : primary || danger ? 'primary' : 'default'} danger={danger}
-      icon={leadingIcon ? <AppIcon name={leadingIcon} /> : undefined} autoInsertSpace={false}>
+      data-kind={danger ? 'danger' : primary ? 'primary' : 'light-blue'} aria-label={props['aria-label'] || fallbackLabel} data-template-control={controlId} type={type || 'button'}
+      size={classes.includes('section-action') ? 'small' : 'medium'} variant={back ? 'text' : 'base'} theme={danger ? 'danger' : primary ? 'primary' : 'light'}
+      icon={leadingIcon ? <AppIcon name={leadingIcon} /> : undefined}>
       {children.filter(child => typeof child !== 'string' || child.trim())}
     </Button>;
   }
   if (tag === 'input' && !['checkbox', 'radio', 'file', 'range', 'hidden', 'color'].includes(props.type)) {
-    return <Input {...props} ref={ref} />;
+    return <TextControl props={props} elementRef={ref} />;
   }
-  // Keep native textarea semantics for the existing delegated change and
-  // file/checkbox workflows. Their visuals share the same token system.
+  if (tag === 'textarea') return <TextControl props={props} elementRef={ref} multiline />;
+  // Structural elements and native file/checkbox workflows retain their semantics.
   return React.createElement(tag, { ...props, ref }, voidElements.has(tag) || tag === 'textarea' ? undefined : children);
 });
 export const TemplateView = memo(function TemplateView({ nodes }) {

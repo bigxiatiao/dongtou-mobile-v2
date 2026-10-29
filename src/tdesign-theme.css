@@ -1,0 +1,82 @@
+/* TDesign Mobile React uses CSS variables; project business tokens stay canonical. */
+:root {
+  --td-brand-color:var(--color-primary-solid);
+  --td-brand-color-active:var(--color-primary-pressed);
+  --td-brand-color-light:var(--color-primary-soft);
+  --td-brand-color-light-active:var(--color-primary-soft-pressed);
+  --td-error-color:var(--color-danger-solid);
+  --td-text-color-primary:var(--color-text-primary);
+  --td-text-color-secondary:var(--color-text-secondary);
+  --td-font-family:var(--font-family);
+  --td-button-border-radius:4px;
+  --td-button-medium-font:500 14px var(--font-family);
+  --td-tab-item-height:44px;
+  --td-tab-track-thickness:2px;
+  --td-navbar-height:44px;
+  --td-navbar-bg-color:white;
+  --td-popup-border-radius:16px;
+}
+html body #app #appNavigation {position:sticky;top:0;z-index:80;background:white}
+html body #app #appNavigation .t-navbar {position:relative;width:100%;color:var(--color-text-primary)}
+html body #app #appNavigation .t-navbar__content {position:relative;padding-top:env(safe-area-inset-top,0px);border-bottom:.5px solid var(--color-divider)}
+html body #app #appNavigation .t-navbar__center {min-width:0;flex:1;position:static;transform:none;margin:0 8px;text-align:center}
+html body #app #appNavigation h1 {font-size:18px;font-weight:600;margin:0;line-height:normal;white-space:normal;overflow-wrap:anywhere}
+html body #app #appNavigation :is(.t-navbar__left,.t-navbar__right) {position:static;min-width:44px;max-width:40%;flex-shrink:0}
+html body #app #appNavigation .navigation-actions {display:flex;align-items:center;font-size:12px}
+html body #app #appNavigation button {min-height:44px;min-width:44px;padding:0 8px;background:transparent;color:var(--color-primary-solid);border:0;border-radius:0;white-space:normal;font-size:12px}
+html body #app #appNavigation .navigation-back {color:var(--color-text-secondary);padding:0}
+html body #app #appNavigation .app-icon {--icon-size:20px}
+/* Sources remain available to controller queries; only the shared navbar is visible. */
+html body #app .view :is(.list-toolbar,.dp-title,.gs-title,.head:has(.back)) {display:none!important}
+html body #app .top {position:relative;top:auto}
+html body #app .t-tabs {min-width:0;--td-tab-nav-background:transparent;--td-tab-font:400 14px var(--font-family)}
+html body #app .standard-segmented {min-height:44px;height:auto;background:var(--color-page);--td-tab-item-tag-height:44px}
+html body #app .role-switch .standard-segmented {--td-tab-font:500 12px var(--font-family);--td-tab-item-tag-height:44px}
+html body #app .standard-text-control {display:block;min-width:0;width:100%;flex:1}
+html body #app .standard-text-control :is(.t-input,.t-textarea) {padding:0;background:transparent;border:0;min-width:0;width:100%}
+html body #app .standard-text-control input {width:100%;box-sizing:border-box}
+html body #app .standard-text-control textarea {width:100%;min-height:88px;box-sizing:border-box}
+html body #app .standard-select-trigger {display:flex;width:100%;min-height:44px;justify-content:space-between;padding:10px 12px;background:white;border:.5px solid var(--color-border);border-radius:8px;color:var(--color-text-primary);text-align:left}
+html body #app .standard-select-trigger .t-button__content {flex:1;justify-content:flex-start;white-space:normal}
+html body #app .standard-select-trigger[aria-invalid="true"] {border-color:var(--color-danger-solid)}
+.standard-option-sheet {padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));max-height:75dvh;overflow:auto;color:var(--color-text-primary);font-family:var(--font-family)}
+.standard-option-heading {display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.standard-option-heading button {min-width:44px;min-height:44px}
+.standard-option-sheet [role="option"] {min-height:48px;cursor:pointer}
+.standard-option-sheet [aria-selected="true"] {color:var(--color-primary-solid);background:var(--color-primary-soft)}
+.standard-option-sheet .is-disabled {opacity:.5;pointer-events:none}
+.scope-choice-list {width:220px;max-height:60dvh;overflow:auto}
+html body #app .t-upload {--td-upload-radius:8px;--td-upload-width:80px;--td-upload-height:80px}
+html body #app .upload-trigger {display:flex;min-height:80px;font-size:12px}
+html body #app .t-upload__delete-btn svg {width:16px;height:16px}
+@media(prefers-reduced-motion:reduce) {.t-tabs__track,.t-popup {transition:none!important}}
+html body #app #appNavigation .t-navbar__content {display:flex;align-items:center;justify-content:space-between;height:calc(44px + env(safe-area-inset-top,0px));box-sizing:border-box}
+.standard-option-sheet button[role="option"] {display:block;width:100%;padding:0;border:0;background:white;text-align:left;font:inherit;color:inherit}
+.standard-option-sheet button[role="option"]:focus-visible {outline:2px solid var(--color-primary-solid);outline-offset:-2px}
+/* Views mount while hidden. Keep non-sticky tab headers in normal flow so
+   TDesign's initial zero-height Sticky measurement cannot collapse them. */
+html body #app [data-standard-choice] .t-sticky {height:auto!important}
+html body #app [data-standard-choice] .t-sticky__content {position:relative!important;top:auto!important;transform:none!important;z-index:auto!important}
+html body #app .role-switch .t-tabs {padding:3px;background:white;border-radius:6px}
+html body #app .role-switch .t-tabs__item {padding:0;flex:1;min-width:40px}
+html body #app .role-switch .t-tabs__item-inner--tag {border-radius:4px;padding:0 10px;color:var(--color-text-secondary);background:white}
+html body #app .role-switch .t-tabs__item-inner--active {background:var(--color-primary-solid);color:white}
+/* The shared navbar owns the top safe area; the identity header must not add it twice. */
+html body #app .top {padding-top:12px;padding-bottom:19px}
+html body #app .upload-file-actions {display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+html body #app .upload-file-actions button {min-height:44px}
+
+/* Shared refinements: visual heights are independent of 44px touch targets. */
+html body #app .top .brand-scope {position:relative;isolation:isolate;background:transparent;min-height:44px;padding:6px 8px}
+html body #app .top .brand-scope::after {content:"";position:absolute;inset:6px 0;background:white;border-radius:6px;z-index:-1;pointer-events:none}
+html body #app .top .role-switch .t-tabs {position:relative;isolation:isolate;min-height:44px;padding:0 3px;background:transparent;--td-tab-item-tag-height:32px}
+html body #app .top .role-switch .t-tabs::before {content:"";position:absolute;inset:3px 0;background:white;border-radius:6px;z-index:-1;pointer-events:none}
+html body #app .top .role-switch .t-tabs__item {min-height:44px;height:44px}
+html body #app .top .role-switch .t-tabs__item-inner--tag {height:32px;min-height:32px}
+/* Underline tabs share one baseline; pill/segmented switches retain their shape. */
+html body #app [data-standard-choice="tabs"] .t-tabs__nav {border-bottom:.5px solid var(--color-border)}
+/* Content search actions share a circular outlined surface. */
+html body #app .view .standard-icon-button:has(.tabler-icon-search) {width:44px;height:44px;min-width:44px;border:1px solid var(--color-primary-solid);border-radius:50%;padding:0;background:transparent;color:var(--color-primary-solid)}
+/* Section-heading actions: TDesign small (32px surface), 44px touch target. */
+html body #app .design-button.section-action {min-height:44px;padding:4px 8px;border:6px solid transparent;border-inline-width:0;background-clip:padding-box;font-size:12px!important;line-height:normal}
+html body #app .design-button.section-action .app-icon {--icon-size:16px}

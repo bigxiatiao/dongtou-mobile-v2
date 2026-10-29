@@ -1,12 +1,13 @@
 import React, { act } from 'react';
 import { createRoot } from 'react-dom/client';
 import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
-import { ConfigProvider } from 'antd';
+import { ConfigProvider } from 'tdesign-mobile-react';
 import { TemplateView, TemplatePortals, parseTemplate, installViewBridge } from './TemplateView';
 
 let root, host, dispose;
 beforeEach(() => {
   globalThis.IS_REACT_ACT_ENVIRONMENT = true;
+  HTMLElement.prototype.scrollTo = vi.fn();
   globalThis.ResizeObserver = class { observe() {} unobserve() {} disconnect() {} };
   window.matchMedia = vi.fn(() => ({ matches: false, addListener() {}, removeListener() {}, addEventListener() {}, removeEventListener() {} }));
   host = document.createElement('div'); document.body.append(host);
@@ -17,7 +18,7 @@ afterEach(async () => {
   document.body.replaceChildren(); dispose = undefined;
 });
 async function mount(markup) {
-  await act(async () => root.render(<ConfigProvider theme={{ token: { motion: false } }}><TemplateView nodes={parseTemplate(markup)} /><TemplatePortals /></ConfigProvider>));
+  await act(async () => root.render(<ConfigProvider><TemplateView nodes={parseTemplate(markup)} /><TemplatePortals /></ConfigProvider>));
   dispose = installViewBridge();
 }
 
@@ -36,7 +37,7 @@ describe('React migration compatibility', () => {
     expect(document.querySelector('[data-tabler]')).toBeNull();
   });
 
-  it('retains delegated action attributes and replaces buttons with real Ant controls', async () => {
+  it('retains delegated action attributes and replaces buttons with real TDesign controls', async () => {
     await mount('<main id="app"><button class="btn" data-save="submit">保存</button><div id="result"></div></main>');
     const app = document.getElementById('app');
     const handler = vi.fn(event => { if (event.target.closest('[data-save]')) window.ReactView.text(document.getElementById('result'), '已保存'); });
@@ -44,7 +45,7 @@ describe('React migration compatibility', () => {
     await act(async () => document.querySelector('[data-save]').click());
     expect(handler).toHaveBeenCalledOnce();
     expect(document.getElementById('result').textContent).toBe('已保存');
-    expect(document.querySelector('[data-save]').classList.contains('ant-btn')).toBe(true);
+    expect(document.querySelector('[data-save]').classList.contains('t-button')).toBe(true);
   });
   it('preserves schema defaults and applies new values on conditional form rerenders', async () => {
     await mount('<main id="app"><section id="form"></section></main>');
@@ -62,8 +63,8 @@ describe('React migration compatibility', () => {
     const sheet = document.createElement('section');
     document.getElementById('app').append(sheet);
     await act(async () => window.ReactView.html(sheet, '<h2>选择安置方式</h2><button data-choice="a">集中安置</button>'));
-    expect(sheet.querySelector('button').textContent).toBe('集中安置');
-    expect(sheet.querySelector('button').classList.contains('ant-btn')).toBe(true);
+    expect(sheet.querySelector('button').textContent.trim()).toBe('集中安置');
+    expect(sheet.querySelector('button').classList.contains('t-button')).toBe(true);
     await act(async () => window.ReactView.html(sheet, ''));
     expect(sheet.children).toHaveLength(0);
   });
@@ -71,7 +72,7 @@ describe('React migration compatibility', () => {
     await mount('<main id="app"><button data-dp="tasks"><span>转移任务<strong>14<small>人次</small></strong><em>待转移 7 · 待复核 2</em></span></button></main>');
     const card = document.querySelector('[data-dp="tasks"]');
     expect(card.tagName).toBe('BUTTON');
-    expect(card.classList.contains('ant-btn')).toBe(false);
+    expect(card.classList.contains('t-button')).toBe(false);
     expect(card.querySelector('strong').textContent).toBe('14人次');
     expect(card.querySelector('em').textContent).toBe('待转移 7 · 待复核 2');
   });
@@ -86,7 +87,7 @@ describe('React migration compatibility', () => {
 });
 
 describe('standard control business bridges', () => {
-  it('routes Ant tab clicks to existing filters and reflects controller selection/count updates', async () => {
+  it('routes TDesign tab clicks to existing filters and reflects controller selection/count updates', async () => {
     await mount('<main id="app"><div class="tabs" id="filters"><button class="active" data-filter="pending">待核查 3</button><button data-filter="done">已核查 2</button></div></main>');
     const filters = document.getElementById('filters');
     const handler = vi.fn(event => {
@@ -95,19 +96,19 @@ describe('standard control business bridges', () => {
       filters.querySelectorAll('[data-filter]').forEach(button => button.classList.toggle('active', button === target));
     });
     filters.addEventListener('click', handler);
-    await act(async () => filters.querySelectorAll('[role="tab"]')[1].click());
-    expect(filters.querySelector('[role="tab"][aria-selected="true"]').textContent).toBe('已核查 2');
+    await act(async () => filters.querySelectorAll('.t-tabs__item')[1].click());
+    expect(filters.querySelector('.t-tabs__item--active').textContent).toBe('已核查 2');
     expect(handler.mock.calls.some(([event]) => event.target.closest('[data-filter="done"]'))).toBe(true);
     await act(async () => window.ReactView.text(filters.querySelector('[data-filter="done"]'), '已核查 3'));
-    expect(filters.querySelector('[role="tab"][aria-selected="true"]').textContent).toBe('已核查 3');
+    expect(filters.querySelector('.t-tabs__item--active').textContent).toBe('已核查 3');
   });
   it('writes standard Select changes into the schema field and dispatches its delegated event', async () => {
     await mount('<main id="app"><select data-field="depth"><option value="none">无积水</option><option value="deep">30厘米以上</option></select></main>');
     const native = document.querySelector('select');
     const handler = vi.fn(); native.addEventListener('change', handler);
-    const combobox = document.querySelector('[role="combobox"]');
-    await act(async () => combobox.dispatchEvent(new MouseEvent('mousedown', { bubbles: true })));
-    const option = [...document.querySelectorAll('.ant-select-item-option')].find(node => node.textContent === '30厘米以上');
+    const combobox = document.querySelector('.standard-select-trigger');
+    await act(async () => combobox.click());
+    const option = [...document.querySelectorAll('[role="option"]')].find(node => node.textContent === '30厘米以上');
     await act(async () => option.click());
     expect(native.value).toBe('deep');
     expect(handler).toHaveBeenCalledOnce();
@@ -141,7 +142,7 @@ it('reflects native schema validation on the visible Select without changing its
   await mount('<main id="app"><label>性别<select aria-label="性别" aria-required="true" data-field="gender"><option>女</option><option>男</option></select></label><span id="gender-error">请选择性别</span></main>');
   const native = document.querySelector('select');
   await act(async () => { native.setAttribute('aria-invalid', 'true'); native.setAttribute('aria-describedby', 'gender-error'); });
-  const visible = document.querySelector('[role="combobox"]');
+  const visible = document.querySelector('.standard-select-trigger');
   expect(visible.getAttribute('aria-required')).toBe('true');
   expect(visible.getAttribute('aria-invalid')).toBe('true');
   expect(visible.getAttribute('aria-describedby')).toBe('gender-error');
