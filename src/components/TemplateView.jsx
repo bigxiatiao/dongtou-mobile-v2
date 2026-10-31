@@ -109,7 +109,7 @@ const TemplateElement = memo(function TemplateElement({ spec }) {
   // Structural row buttons keep their native flow layout; actual action controls
   // use TDesign Button without changing the original data attributes or click path.
   const actionButton = tag === 'button' && !hasFlowContent(spec.children)
-    && !/(?:map-marker|dp-marker|collection-marker|transfer-picker-trigger|dp-picker|transfer-option|dp-option|room-option|home-map-backdrop|brand-scope|transfer-group-head|dp-unit-progress|dp-group-label|home-shortcut)/.test(props.className || '')
+    && !/(?:map-marker|dp-marker|dp-dashboard-task|collection-marker|transfer-picker-trigger|dp-picker|transfer-option|dp-option|room-option|home-map-backdrop|brand-scope|transfer-group-head|dp-unit-progress|dp-group-label|home-shortcut)/.test(props.className || '')
     && props['data-workbench'] !== 'notice-list' && props['data-dp'] !== 'notices';
   if (actionButton) {
     const { type, ...buttonProps } = props;

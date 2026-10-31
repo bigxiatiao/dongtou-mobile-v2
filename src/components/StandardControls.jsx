@@ -49,7 +49,7 @@ export function ChoiceControl({ props, children, elementRef, segmented }) {
   }}>
     <div ref={source} hidden>{children}</div>
     <Tabs className={segmented ? 'standard-segmented' : undefined} theme={segmented ? 'tag' : 'line'}
-      stickyProps={{ disabled: true }} split={false} showBottomLine={!segmented} swipeable={false} value={value} onChange={choose}
+      stickyProps={{ disabled: true }} spaceEvenly={choices.length <= 4} split={false} showBottomLine={!segmented} swipeable={false} value={value} onChange={choose}
       list={choices.map(item => ({ value: item.key, label: item.label, disabled: item.disabled }))} />
   </div>;
 }

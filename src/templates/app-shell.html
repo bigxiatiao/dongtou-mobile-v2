@@ -5,11 +5,11 @@
 <div class="brand" id="brandText"><span class="brand-title">洞头网格+应急工作端</span><div class="brand-context" id="brandContext"><button class="brand-scope" data-collection="scope-open"><i data-tabler=map-pin></i><span id="scopePathText">东屏街道 / 东屏03网格</span><b><i data-tabler=chevron-down></i></b></button><span class="brand-user">网格员 · 张海燕</span><div class="scope-options hidden" id="scopeOptions"></div></div>
 <div class="brand-context hidden" id="departmentContext"></div>
 </div>
+</header>
 <div class="role-switch">
 <button class="on" data-role="grid">基层</button>
 <button data-role="dept">部门</button>
 </div>
-</header>
 <section class="view active" id="home">
 <div class="card home-action-card" id="homeActionCard">
 <div class="home-action-summary">
@@ -25,7 +25,7 @@
 <div class="head">
 <div>
 <h1>我的任务</h1>
-<div class="sub">任务、风险与基础数据</div>
+
 </div>
 <div class="chip">
 <b>18</b>待处理</div>
@@ -74,7 +74,7 @@
 <button class="btn back" data-tab="tasks" aria-label="返回上一页"><i data-tabler=chevron-left></i></button>
 <h1>房屋风险排查</h1>
 </div>
-<div class="sub">本次动态风险 · 不直接改主数据</div>
+
 <div class="card">
 <div class="row">
 <div class="avatar"><i data-tabler=home></i></div>
@@ -85,7 +85,7 @@
 </div>
 <button class="btn" data-action="route">导航</button>
 </div>
-<div class="notice warn">只记录当前积水、裂缝、用电、通行和人员在场情况；底数错误另发起数据修正。</div>
+
 </div>
 <div class="card">
 <div class="voice-title">现场环境<button class="voice" data-action="voice"><i data-tabler=microphone></i> 语音填写</button>
@@ -236,9 +236,8 @@
 <div class="list-toolbar">
 <button class="btn back" data-workbench="home" aria-label="返回上一页"><i data-tabler=chevron-left></i></button>
 <h1>转移任务</h1>
-<button class="mini-btn" data-workbench="batch-start">批量办理</button>
 </div>
-<div class="sub" id="transferListSummary" style="margin:-5px 0 10px"></div>
+<div class="transfer-list-context"><div class="sub" id="transferListSummary"></div><button class="mini-btn section-action" data-workbench="batch-start">批量办理</button></div>
 <div class="transfer-grouping" id="transferGrouping" aria-label="任务分组方式"></div>
 <div class="batch-bar" id="batchBar">
 <span>已选 <b id="selectedCount">0</b> 人</span>
@@ -305,11 +304,9 @@
 <div class="list-toolbar">
 <button class="btn back" data-workbench="home" aria-label="返回上一页"><i data-tabler=chevron-left></i></button>
 <h1>数据采集</h1>
-<span class="status-count" id="collectionCount">0条</span>
-</div>
-<div class="collection-tools">
-<div class="view-switch" id="collectionViewSwitch"><button class="active" data-collection-mode="list">列表</button><button data-collection-mode="map">地图</button></div>
-<button class="search-icon" aria-label="搜索" data-collection="search-open"><i data-tabler=search></i></button>
+<span id="collectionCount" hidden>0条</span>
+<button id="collectionModeToggle" data-collection-mode="map" aria-label="切换地图模式"><i data-tabler=map-pin></i></button>
+<button aria-label="搜索" data-collection="search-open"><i data-tabler=search></i></button>
 </div>
 <div id="collectionListView">
 <div class="tabs collection-status-tabs"><button class="active" data-collection-status="pending">待核查</button><button data-collection-status="verified">已核查</button></div>

@@ -1,0 +1,92 @@
+/* Figma 76:1295, 2026-10-30. Home identity belongs only to the dashboards. */
+html body #app #appNavigation .t-navbar__center {
+  position:absolute;left:88px;right:88px;margin:0;transform:none;
+}
+html body #app > .top {display:none}
+html body #app:has(> :is(#home,#dept).active) > .top {
+  display:block;min-height:78px;padding:10px 16px 24px;
+  background:var(--color-primary-solid);
+}
+html body #app .top::before {background-position:center -10px}
+html body #app .top :is(.logo,.brand-title) {display:none}
+html body #app .top .brand-context {gap:8px;flex-wrap:nowrap;min-height:44px}
+html body #app .top .brand-scope {
+  height:auto;min-height:32px;padding:6px 8px;background:var(--color-surface);
+  color:var(--color-text-secondary);flex:0 1 auto;
+}
+html body #app .top .brand-scope::after {display:none}
+html body #app .top .brand-scope > span {white-space:normal;text-align:left;overflow-wrap:anywhere}
+html body #app .top .brand-user {font-size:12px;flex-shrink:0;text-shadow:none}
+html body #app > .role-switch {display:none}
+html body #app:has(> :is(#home,#dept).active) > .role-switch {
+  display:block;position:fixed;z-index:60;right:max(16px,calc((100vw - 480px)/2 + 16px));
+  bottom:calc(16px + env(safe-area-inset-bottom,0px));width:124px;margin:0;
+  border:0;border-radius:6px;box-shadow:var(--shadow-float);
+}
+html body #app > .role-switch .t-tabs {padding:4px;background:var(--color-surface);border-radius:6px}
+html body #app > .role-switch .standard-segmented {min-height:44px;--td-tab-item-tag-height:36px}
+html body #app > .role-switch .t-tabs__item {height:36px;min-height:36px}
+html body #app > .role-switch .t-tabs__item-inner--tag {height:36px;min-height:36px}
+html body #app > .view:not(#home):not(#dept) {
+  margin-top:0;border:0;border-radius:0;min-height:calc(100dvh - 44px);
+}
+html body #app :is(#home,#dept) {padding-bottom:calc(80px + env(safe-area-inset-bottom,0px))}
+html body #app :is(#home,#dept) .home-action-card {overflow:hidden}
+html body #app :is(#home,#dept) .home-action-card::before {
+  inset:-8px -19px;filter:blur(14px);background-size:cover;
+}
+html body #app :is(#home,#dept) .home-action-summary {
+  display:flex;flex-direction:column;align-items:flex-start;gap:8px;
+}
+html body #app :is(#home,#dept) .home-action-info {
+  display:flex;align-items:center;gap:4px;flex-basis:auto;
+}
+html body #app :is(#home,#dept) .home-action-heading {order:-1;margin:0}
+html body #app :is(#home,#dept) .home-action-name {margin:0;color:var(--color-text-primary)}
+html body #app :is(#home,#dept) .home-weather {max-width:none;margin:0;gap:8px}
+html body #app :is(#home,#dept) .latest-notice {min-height:20px;margin:0;flex-wrap:nowrap}
+html body #app :is(#home,#dept) .latest-notice button {min-height:20px;padding:0;font-size:12px}
+html body #app :is(#home,#dept) .latest-notice .unread-dot {background:var(--color-danger-solid)}
+html body #app #home .head {min-height:26px}
+html body #app #home .chip {flex-direction:row;align-items:center;width:auto;gap:4px;white-space:nowrap}
+html body #app #home .chip b {color:var(--color-danger-pressed)}
+html body #app #home .metrics {gap:8px}
+html body #app #home .metric {min-height:133px;background:var(--color-surface)}
+html body #app #home .metric::before {display:none}
+html body #app #home .metric strong {color:var(--color-primary-solid)}
+html body #app #home .metric:nth-child(1) strong {color:var(--color-warning-text)}
+html body #app #home .metric:nth-child(2) strong {color:var(--color-success-text)}
+html body #app #home .metric .tag {margin:0}
+html body #app #dept .dp-dashboard-task,
+html body #app #dept .dp-dashboard-task:nth-child(2) {background:var(--color-surface)}
+html body #app #dept .dp-dashboard-task strong {color:var(--color-warning-text)}
+html body #app #dept .dp-section-heading {min-height:26px}
+html body #app :is(#home #homeMapCard>.ph,#dept .dp-map-card>.dp-section-heading) {min-height:31px}
+html body #app :is(#home .home-map-panel,#dept .dp-map) {height:200px;background-size:cover}
+html body #app #home .home-map-legend {bottom:12px}
+html body #app :is(.home-map-switch,.dp-map-switch) .standard-segmented {
+  min-height:31px;--td-tab-item-tag-height:25px;background:var(--color-surface);border-radius:4px;
+}
+html body #app :is(.home-map-switch,.dp-map-switch) {min-height:31px;height:auto;margin:0}
+html body #app :is(.home-map-switch,.dp-map-switch) .t-tabs__wrapper--tag {padding:0}
+html body #app > .role-switch .t-tabs__wrapper--tag {padding:0}
+html body #app [data-standard-choice="tabs"] .t-tabs__item:not(.t-tabs__item--evenly) {flex:none;min-width:max-content;padding-inline:16px}
+html body #app :is(.home-map-switch,.dp-map-switch) .t-tabs__item {height:31px;padding:3px}
+html body #app :is(.home-map-switch,.dp-map-switch) .t-tabs__item-inner--tag {height:25px;border-radius:4px;padding:0 12px;font-size:12px}
+html body #app :is(.home-map-switch,.dp-map-switch) .t-tabs__item-inner--active {background:var(--color-primary-solid);color:var(--color-surface)}
+/* The compact list retains name/status/reason and its four-level disclosure tree. */
+html body #app .transfer-list-context {display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+html body #app #transferListSummary {margin:0!important;flex:1;min-width:0}
+html body #app #transfer-list .transfer-group-count {margin-left:12px}
+html body #app #transfer-list .transfer-member-heading {display:flex;align-items:center;justify-content:space-between;gap:8px}
+html body #app #transfer-list .transfer-member-heading b {font-size:14px}
+html body #app #transfer-list .transfer-member-row .tag {flex-shrink:0;padding:4px 8px;min-height:0}
+html body #app #base-list .collection-row {padding:12px 16px}
+/* Tags describe state; only icon controls keep a dedicated 44px target. */
+html body #app :is(.tag,.dp-badge,.gs-status,.status-badge,.collection-tag-chip) {min-height:0;height:auto;cursor:inherit}
+html body #app :is(.transfer-bottom-actions,.transfer-sticky-actions,.collection-bottom-actions,.dp-bottom,.actions) > .design-button {min-height:48px}
+@media(max-width:360px) {
+  html body #app .top .brand-context {display:flex;flex-wrap:wrap;gap:4px 8px}
+  html body #app .top .brand-scope {width:auto;max-width:100%}
+  html body #app .top .brand-user {margin-left:auto}
+}

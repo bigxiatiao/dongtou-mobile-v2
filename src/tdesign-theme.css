@@ -77,6 +77,6 @@ html body #app .top .role-switch .t-tabs__item-inner--tag {height:32px;min-heigh
 html body #app [data-standard-choice="tabs"] .t-tabs__nav {border-bottom:.5px solid var(--color-border)}
 /* Content search actions share a circular outlined surface. */
 html body #app .view .standard-icon-button:has(.tabler-icon-search) {width:44px;height:44px;min-width:44px;border:1px solid var(--color-primary-solid);border-radius:50%;padding:0;background:transparent;color:var(--color-primary-solid)}
-/* Section-heading actions: TDesign small (32px surface), 44px touch target. */
-html body #app .design-button.section-action {min-height:44px;padding:4px 8px;border:6px solid transparent;border-inline-width:0;background-clip:padding-box;font-size:12px!important;line-height:normal}
+/* Section-heading actions retain the TDesign 32px surface in normal flow. */
+html body #app .design-button.section-action {min-height:32px;height:32px;padding:4px 8px;border:0;font-size:12px!important;line-height:normal}
 html body #app .design-button.section-action .app-icon {--icon-size:16px}

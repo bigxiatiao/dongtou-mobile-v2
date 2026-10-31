@@ -49,17 +49,16 @@ html body #app :is(.tag.o,.dp-badge.orange) {background:#fffbe6;color:var(--colo
 html body #app :is(.tag.g,.dp-badge.green,.gs-status.open) {background:#f6ffed;color:var(--color-success-text)}
 html body #app :is(.tag.b,.type-pill) {background:var(--color-primary-soft);color:var(--color-primary-solid)}
 html body #app .tag.p {background:#f9f0ff;color:#531dab}
-/* Action buttons: 40px visual surface within a separate 44px flow box.
-   The transparent border occupies real space and never overlaps a neighbour. */
+/* Action surfaces use their specified size directly; no artificial hit-area border. */
 html body #app :is(.design-button,.btn,.mini-btn,.dp-button,.voice,.dp-voice,.gs-soft-button,.gs-detail-actions>a,.gs-detail-actions>button) {
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  min-height:44px;height:auto;max-width:100%;padding:8px 12px;
-  border:2px solid transparent;border-inline-width:0;border-radius:4px;
+  min-height:40px;height:auto;max-width:100%;padding:8px 12px;
+  border:0;border-radius:4px;
   background:var(--color-primary-soft);background-clip:padding-box;
   color:var(--color-primary-solid);font-size:14px;font-weight:500;
   text-decoration:none;box-shadow:none;white-space:normal;
 }
-html body #app .mini-btn {font-size:12px;padding:6px 8px;border-block-width:6px}
+html body #app .mini-btn {min-height:32px;font-size:12px;padding:6px 8px}
 html body #app :is(.btn.primary,.dp-button.primary,.design-button[data-kind="primary"],.gs-detail-actions>button:not(:disabled)) {background-color:var(--color-primary-solid);color:white;box-shadow:none}
 html body #app :is(.btn.danger,.dp-button.danger,.design-button[data-kind="danger"]) {background-color:var(--color-danger-solid);color:white}
 html body #app :is(.design-button,.btn,.dp-button,.mini-btn,.voice,.dp-voice):active:not(:disabled) {background-color:var(--color-primary-soft-pressed);color:var(--color-primary-solid)}
